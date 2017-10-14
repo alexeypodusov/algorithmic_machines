@@ -3,16 +3,20 @@
 
 #include <QWidget>
 
+#include <ui/basecommandwidget.h>
+
+#include <models/modelbase.h>
+
 namespace Ui {
 class PostCommandWidget;
 }
 
-class PostCommandWidget : public QWidget
+class PostCommandWidget : public QWidget, BaseCommandWidget
 {
     Q_OBJECT
 
 public:
-    explicit PostCommandWidget(QWidget *parent = 0);
+    explicit PostCommandWidget(QWidget *parent, ModelBase *model);
     ~PostCommandWidget();
 
 private:

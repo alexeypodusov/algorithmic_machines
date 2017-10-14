@@ -1,17 +1,9 @@
 #ifndef BASECOMMANDWIDGET_H
 #define BASECOMMANDWIDGET_H
 
-#include <QObject>
-
-class BaseCommandWidget : public QObject
-{
-    Q_OBJECT
+class BaseCommandWidget {
 public:
-    explicit BaseCommandWidget(QObject *parent = 0);
-
-signals:
-
-public slots:
+    explicit BaseCommandWidget();
 };
 
 #endif // BASECOMMANDWIDGET_H

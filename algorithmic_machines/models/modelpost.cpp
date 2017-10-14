@@ -1,6 +1,6 @@
 #include "modelpost.h"
 
-ModelPost::ModelPost()
+ModelPost::ModelPost(QObject *parent) : ModelBase(parent)
 {
 
 }

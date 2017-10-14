@@ -1,11 +1,15 @@
 #ifndef MODELPOST_H
 #define MODELPOST_H
 
+#include "modelbase.h"
 
-class ModelPost
+
+
+class ModelPost : public ModelBase
 {
+    Q_OBJECT
 public:
-    ModelPost();
+    ModelPost(QObject *parent = 0);
 };
 
 #endif // MODELPOST_H
