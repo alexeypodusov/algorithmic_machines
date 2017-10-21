@@ -9,9 +9,13 @@
 #include <qlabel.h>
 
 #include <ui/baseworkareawidget.h>
-
+#include <QResizeEvent>
+#include <QScrollBar>
 #include <models/modelbase.h>
 #include <qDebug.h>
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QSize>
 
 namespace Ui {
 class PostWorkAreaWidget;
@@ -25,10 +29,13 @@ public:
     explicit PostWorkAreaWidget(QWidget *parent, ModelBase *model);
     ~PostWorkAreaWidget();
 
-private:
-    QList<QSharedPointer<PostCell>> *cellList;
+private slots:
 
+private:
+    QList<QSharedPointer<PostCell> > *cellList;
+    void resizeEvent(QResizeEvent *event);
     Ui::PostWorkAreaWidget *ui;
+    QHBoxLayout *layoutScrollArea;
     init();
 };
 

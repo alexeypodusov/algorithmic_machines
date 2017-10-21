@@ -27,8 +27,8 @@ private:
     AbstractFactory *factory;
     ModelBase *model;
 
-    QList<QSharedPointer<BaseCommandWidget>>* commandWidgetList;
-    QList<QSharedPointer<BaseWorkAreaWidget>>* workAreaWidgetList;
+    QList<QSharedPointer<BaseCommandWidget> >* commandWidgetList;
+    QList<QSharedPointer<BaseWorkAreaWidget> >* workAreaWidgetList;
 
 };
 

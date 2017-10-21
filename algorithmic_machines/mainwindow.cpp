@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 }
 
 MainWindow::~MainWindow() {
+    delete commandWidgetList;
+    delete workAreaWidgetList;
     delete ui;
 }
 
@@ -19,10 +21,10 @@ MainWindow::initHardCode() {
     factory = new PostFactory(this);
     model = factory->createModel(this);
 
-    commandWidgetList = new QList<QSharedPointer<BaseCommandWidget>>();
+    commandWidgetList = new QList<QSharedPointer<BaseCommandWidget> >();
     commandWidgetList->append(QSharedPointer<BaseCommandWidget>(factory->createCommandWidget(this, model)));
 
-    workAreaWidgetList = new QList<QSharedPointer<BaseWorkAreaWidget>>();
+    workAreaWidgetList = new QList<QSharedPointer<BaseWorkAreaWidget> >();
     workAreaWidgetList->append(QSharedPointer<BaseWorkAreaWidget>(factory->createWorkAreaWidget(this, model)));
 
     ui->tabWorkAreaWidget->addTab((QWidget*)workAreaWidgetList->at(0).data(), "1234");

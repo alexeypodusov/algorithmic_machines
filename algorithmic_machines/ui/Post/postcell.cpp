@@ -3,7 +3,7 @@
 PostCell::PostCell(QObject *parent) : QObject(parent) {
     mainLayout = new QVBoxLayout();
     pushButton = new QPushButton();
-    pushButton->setFixedHeight(HEIGHT_BUTTON);
+    pushButton->setFixedSize(WIDTH_CELL, HEIGHT_BUTTON);
     label = new QLabel();
     label->setFixedHeight(HEIGHT_LABEL);
     mainLayout->addWidget(label);
