@@ -27,11 +27,15 @@ public:
     QLabel *getLabel();
     void setNumber(QString number);
     void setMark(bool mark);
+    void setCurrent();
+
+    QString getNumber();
 private:
 
 signals:
-
-public slots:
+    void buttonClickedSignal(QString numberCell);
+private slots:
+    onButtonClickedSlot();
 };
 
 #endif // POSTCELL_H

@@ -3,10 +3,10 @@
 
 #include <QObject>
 
-#include <ui/basecommandwidget.h>
-#include <ui/baseworkareawidget.h>
+#include <ui/BaseCommandWidget.h>
+#include <ui/BaseWorkAreaWidget.h>
 
-#include <models/modelbase.h>
+#include <models/ModelBase.h>
 
 class AbstractFactory : public QObject
 {

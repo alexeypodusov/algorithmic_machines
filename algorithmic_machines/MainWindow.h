@@ -4,9 +4,9 @@
 #include <QHBoxLayout>
 #include <QListWidget>
 #include <QMainWindow>
-#include <factories/abstractfactory.h>
-#include <ui/Post/postcommandwidget.h>
-#include <ui/baseworkareawidget.h>
+#include <factories/AbstractFactory.h>
+#include <ui/Post/PostCommandWidget.h>
+#include <ui/BaseWorkAreaWidget.h>
 
 namespace Ui {
 class MainWindow;

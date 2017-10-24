@@ -1,4 +1,4 @@
-#include "postcommandwidget.h"
+#include "PostCommandWidget.h"
 #include "ui_postcommandwidget.h"
 
 PostCommandWidget::PostCommandWidget(QWidget *parent, ModelBase *model) :

@@ -1,9 +1,9 @@
 #ifndef POSTFACTORY_H
 #define POSTFACTORY_H
 
-#include "abstractfactory.h"
+#include "AbstractFactory.h"
 
-#include <ui/baseworkareawidget.h>
+#include <ui/BaseWorkAreaWidget.h>
 
 
 class PostFactory : public AbstractFactory

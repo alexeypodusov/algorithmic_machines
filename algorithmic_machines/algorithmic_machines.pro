@@ -13,28 +13,30 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    models/modelbase.cpp \
-    ui/Post/postcommandwidget.cpp \
-    ui/basecommandwidget.cpp \
-    factories/abstractfactory.cpp \
-    factories/postfactory.cpp \
-    models/modelpost.cpp \
-    ui/Post/postworkareawidget.cpp \
-    ui/baseworkareawidget.cpp \
-    ui/Post/postcell.cpp
+    factories/AbstractFactory.cpp \
+    factories/PostFactory.cpp \
+    models/ModelBase.cpp \
+    models/ModelPost.cpp \
+    ui/Post/PostCell.cpp \
+    ui/Post/PostCommandWidget.cpp \
+    ui/Post/PostWorkAreaWidget.cpp \
+    ui/BaseCommandWidget.cpp \
+    ui/BaseWorkAreaWidget.cpp \
+    MainWindow.cpp
 
-HEADERS  += mainwindow.h \
-    models/modelbase.h \
-    ui/Post/postcommandwidget.h \
-    ui/basecommandwidget.h \
-    factories/abstractfactory.h \
-    factories/postfactory.h \
-    models/modelpost.h \
-    ui/Post/postworkareawidget.h \
-    ui/baseworkareawidget.h \
-    ui/Post/postcell.h
+HEADERS  += \
+    factories/AbstractFactory.h \
+    factories/PostFactory.h \
+    models/ModelBase.h \
+    models/ModelPost.h \
+    ui/Post/PostCell.h \
+    ui/Post/PostCommandWidget.h \
+    ui/Post/PostWorkAreaWidget.h \
+    ui/BaseCommandWidget.h \
+    ui/BaseWorkAreaWidget.h \
+    MainWindow.h
 
-FORMS    += mainwindow.ui \
-    ui/Post/postcommandwidget.ui \
+FORMS    += \
+    ui/Post/PostCommandWidget.ui \
+    MainWindow.ui \
     ui/Post/postworkareawidget.ui

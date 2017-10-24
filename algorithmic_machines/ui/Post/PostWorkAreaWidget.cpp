@@ -1,4 +1,4 @@
-#include "postworkareawidget.h"
+#include "PostWorkAreaWidget.h"
 #include "ui_postworkareawidget.h"
 
 
@@ -7,9 +7,10 @@ PostWorkAreaWidget::PostWorkAreaWidget(QWidget *parent, ModelBase *model) :
     ui(new Ui::PostWorkAreaWidget)
 {
     ui->setupUi(this);
-
+    this->model = (ModelPost*)model;
     show();
     init();
+
 }
 
 PostWorkAreaWidget::~PostWorkAreaWidget()
@@ -20,42 +21,64 @@ PostWorkAreaWidget::~PostWorkAreaWidget()
 
 void PostWorkAreaWidget::resizeEvent(QResizeEvent* event)
 {
-    QSize test = ui->scrollArea->size();
-    int test2 = layoutScrollArea->margin();
-     //int countCellsInVisible = (size().width()-100) / PostCell::WIDTH_CELL;
-    // ui->scrollArea->horizontalScrollBar()->setValue((20-countCellsInVisible/2)*(PostCell::WIDTH_CELL+6));
+    updateSizeWidget();
 }
 
 PostWorkAreaWidget::init() {
 
-        if(cellList!=NULL) {
-            for(int i=0 ; i<cellList->size() ; i++) {
-                delete cellList->at(i).data();
-            }
-        }
         cellList = new QList<QSharedPointer<PostCell> >();
 
-        int countCells = QApplication::desktop()->width()/PostCell::WIDTH_CELL;
+        countCells = QApplication::desktop()->width()/(PostCell::WIDTH_CELL+6)+100;
+        numberCarriage = countCells/2;
 
-
-//        if(layoutScrollArea!=NULL) {
-//           delete layoutScrollArea;
-//        }
         layoutScrollArea = new QHBoxLayout(this);
-        QWidget *testWidget = new QWidget();
         for(int i = 0; i<countCells; i++) {
             cellList->append(QSharedPointer<PostCell>(new PostCell(this)));
             layoutScrollArea->addLayout(cellList->at(i).data()->getMainLayout());
-            cellList->at(i).data()->getLabel()->setText(QString::number(i));
         }
 
-        testWidget->setLayout(layoutScrollArea);
-        ui->scrollArea->setWidget(testWidget);
+        updateWorkArea();
+        cellList->at(numberCarriage).data()->setCurrent();
 
-       //ui->scrollArea->widget()->setLayout(tlayoutScrollArea);
-
-        //ui->scrollArea->horizontalScrollBar()->setValue(200);
+       ui->scrollArea->widget()->setLayout(layoutScrollArea);
 
 }
 
 
+QWidget *PostWorkAreaWidget::getWidget() {
+    return this;
+}
+
+
+void PostWorkAreaWidget::updateSizeWidget() {
+    //подобрано эмперическим путем
+    int margin = 6;
+    int factor = PostCell::WIDTH_CELL+margin;
+
+    int widthScrollArea = ui->scrollArea->size().width();
+
+    int leftCellNumber = numberCarriage-(widthScrollArea/factor)/2;
+    ui->scrollArea->horizontalScrollBar()->setValue(leftCellNumber*factor+3);
+}
+
+void PostWorkAreaWidget::updateWorkArea() {
+    int currentModelCarriage = model->getCurrentCarriage();
+    for (int i = 0; i<cellList->size(); i++) {
+        cellList->at(i).data()->getLabel()->setText(QString::number(currentModelCarriage-(numberCarriage-i)));
+    }
+}
+
+void PostWorkAreaWidget::on_LeftPushButton_clicked() {
+     model->setCurrentCarriage(model->getCurrentCarriage()-1);
+     updateWorkArea();
+}
+
+void PostWorkAreaWidget::on_RightPushButton_clicked() {
+    model->setCurrentCarriage(model->getCurrentCarriage()+1);
+    updateWorkArea();
+}
+
+void PostWorkAreaWidget::onCellClicked(QString numberCell)
+{
+
+}

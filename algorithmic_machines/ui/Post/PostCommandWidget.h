@@ -3,9 +3,9 @@
 
 #include <QWidget>
 
-#include <ui/basecommandwidget.h>
+#include <ui/BaseCommandWidget.h>
 
-#include <models/modelbase.h>
+#include <models/ModelBase.h>
 
 namespace Ui {
 class PostCommandWidget;

@@ -1,4 +1,4 @@
-#include "basecommandwidget.h"
+#include "BaseCommandWidget.h"
 
 BaseCommandWidget::BaseCommandWidget() {
 

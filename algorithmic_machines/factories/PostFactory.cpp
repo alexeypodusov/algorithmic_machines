@@ -1,9 +1,9 @@
-#include "postfactory.h"
+#include "PostFactory.h"
 
-#include <ui/Post/postcommandwidget.h>
-#include <ui/Post/postworkareawidget.h>
+#include <ui/Post/PostCommandWidget.h>
+#include <ui/Post/PostWorkAreaWidget.h>
 
-#include <models/modelpost.h>
+#include <models/ModelPost.h>
 
 
 PostFactory::PostFactory(QObject *parent) : AbstractFactory(parent)

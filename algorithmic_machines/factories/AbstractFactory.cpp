@@ -1,4 +1,4 @@
-#include "abstractfactory.h"
+#include "AbstractFactory.h"
 
 AbstractFactory::AbstractFactory(QObject *parent) : QObject(parent) {
 
