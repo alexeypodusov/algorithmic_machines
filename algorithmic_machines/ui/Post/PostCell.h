@@ -35,7 +35,7 @@ private:
 signals:
     void buttonClickedSignal(QString numberCell);
 private slots:
-    onButtonClickedSlot();
+    onButtonClickedSlot(bool b);
 };
 
 #endif // POSTCELL_H

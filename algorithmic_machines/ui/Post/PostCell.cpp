@@ -13,7 +13,7 @@ PostCell::PostCell(QObject *parent) : QObject(parent) {
     mainLayout->addWidget(label);
     mainLayout->addWidget(pushButton);
 
-    connect(pushButton, SIGNAL(clicked(bool), this, SLOT(onButtonClickedSlot()));
+    connect(pushButton, SIGNAL(clicked(bool)), this, SLOT(onButtonClickedSlot(bool)));
 }
 
 PostCell::~PostCell()
@@ -39,7 +39,7 @@ void PostCell::setCurrent() {
     pushButton->setStyleSheet("border:1px solid ;");
 }
 
-PostCell::onButtonClickedSlot() {
+PostCell::onButtonClickedSlot(bool b) {
     emit buttonClickedSignal(getNumber());
 }
 
