@@ -33,8 +33,10 @@ PostWorkAreaWidget::init() {
 
         layoutScrollArea = new QHBoxLayout(this);
         for(int i = 0; i<countCells; i++) {
-            cellList->append(QSharedPointer<PostCell>(new PostCell(this)));
-            layoutScrollArea->addLayout(cellList->at(i).data()->getMainLayout());
+            PostCell *cell = new PostCell(this);
+            cellList->append(QSharedPointer<PostCell>(cell));
+            layoutScrollArea->addWidget(cell->getCellWidget());
+            connect(cell, SIGNAL(buttonClickedSignal(QString)), this, SLOT(onCellClicked(QString)));
         }
 
         updateWorkArea();
@@ -64,7 +66,17 @@ void PostWorkAreaWidget::updateSizeWidget() {
 void PostWorkAreaWidget::updateWorkArea() {
     int currentModelCarriage = model->getCurrentCarriage();
     for (int i = 0; i<cellList->size(); i++) {
-        cellList->at(i).data()->getLabel()->setText(QString::number(currentModelCarriage-(numberCarriage-i)));
+        int numberCell = currentModelCarriage-(numberCarriage-i);
+
+        if(numberCell >= ModelPost::LEFT_BORDER_TAPE && numberCell <= ModelPost::RIGHT_BORDER_TAPE ) {
+            cellList->at(i).data()->getLabel()->setText(QString::number(numberCell));
+            cellList->at(i).data()->setMark(model->getMarkByNumberCell(numberCell));
+            if(!cellList->at(i).data()->isVisible()) {
+                    cellList->at(i).data()->setVisible(true);
+            }
+        } else {
+            cellList->at(i).data()->setVisible(false);
+        }
     }
 }
 
@@ -78,7 +90,7 @@ void PostWorkAreaWidget::on_RightPushButton_clicked() {
     updateWorkArea();
 }
 
-void PostWorkAreaWidget::onCellClicked(QString numberCell)
-{
-
+void PostWorkAreaWidget::onCellClicked(QString numberCell) {
+    model->changeSell(numberCell.toInt());
+    updateWorkArea();
 }

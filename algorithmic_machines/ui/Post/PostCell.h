@@ -18,19 +18,24 @@ public:
     explicit PostCell(QObject *parent = 0);
     ~PostCell();
 
-    QVBoxLayout *mainLayout;
-    QPushButton *pushButton;
-    QLabel *label;
-
     QVBoxLayout *getMainLayout();
     QPushButton *getPushButton();
+    QWidget *getCellWidget();
     QLabel *getLabel();
     void setNumber(QString number);
     void setMark(bool mark);
     void setCurrent();
-
+    void setVisible(bool isVisible);
+    bool isVisible();
     QString getNumber();
+
+
+
 private:
+    QVBoxLayout *mainLayout;
+    QPushButton *pushButton;
+    QLabel *label;
+    QWidget *cellWidget;
 
 signals:
     void buttonClickedSignal(QString numberCell);

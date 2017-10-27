@@ -39,4 +39,4 @@ HEADERS  += \
 FORMS    += \
     ui/Post/PostCommandWidget.ui \
     MainWindow.ui \
-    ui/Post/postworkareawidget.ui
+    ui/Post/PostWorkAreaWidget.ui
