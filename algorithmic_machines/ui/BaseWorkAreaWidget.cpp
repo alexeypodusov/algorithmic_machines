@@ -5,6 +5,11 @@ BaseWorkAreaWidget::BaseWorkAreaWidget()
 
 }
 
+BaseWorkAreaWidget::~BaseWorkAreaWidget()
+{
+
+}
+
 QWidget *BaseWorkAreaWidget::getWidget()
 {
 
@@ -19,3 +24,4 @@ void BaseWorkAreaWidget::updateWorkArea()
 {
 
 }
+

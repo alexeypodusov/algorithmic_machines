@@ -1,5 +1,5 @@
 #include "MainWindow.h"
-#include "ui_mainwindow.h"
+#include "ui_MainWindow.h"
 
 #include <factories/PostFactory.h>
 
@@ -29,6 +29,11 @@ MainWindow::initHardCode() {
 
     ui->tabWorkAreaWidget->addTab(workAreaWidgetList->at(0).data()->getWidget(), "1234");
     workAreaWidgetList->at(0).data()->updateSizeWidget();
-    ui->tabCommandWidget->addTab((QWidget*)commandWidgetList->at(0).data(), "1234");
-    //workAreaWidgetList->at(0).data()->resizeWorkArea();
+    ui->tabCommandWidget->addTab(commandWidgetList->at(0).data()->getWidget(), "1234");
+
+}
+
+void MainWindow::on_pushButtonAddString_clicked()
+{
+    commandWidgetList->at(ui->tabCommandWidget->currentIndex()).data()->onAddStringClicked();
 }

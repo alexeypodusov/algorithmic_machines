@@ -2,8 +2,7 @@
 #define MODELPOST_H
 
 #include "ModelBase.h"
-
-
+#include <models/Post/PostModelCommand.h>
 
 class ModelPost : public ModelBase
 {
@@ -19,8 +18,19 @@ public:
     bool getMarkByNumberCell(int numCell);
 
     void changeSell(int numCell);
+
+    int getCommandsListSize();
+    PostModelCommand getPostCommand(int numberCommand);
+
+    void setCommandType(int numberCommand, PostModelCommand::CommandType type);
+    void setTransition(int numberCommand, int transition);
+    void setSecondTransition(int numberCommand, int transition);
+    void setComment(int numberCommand, QString comment);
+
+    void insertCommandString(int numString);
 private:
     QList<bool> *cellsList;
+    QList<PostModelCommand> *commandsList;
     int currentCarriage = 0;
 };
 

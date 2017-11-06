@@ -22,7 +22,10 @@ SOURCES += main.cpp\
     ui/Post/PostWorkAreaWidget.cpp \
     ui/BaseCommandWidget.cpp \
     ui/BaseWorkAreaWidget.cpp \
-    MainWindow.cpp
+    MainWindow.cpp \
+    ui/Post/PostCommandString.cpp \
+    ui/BaseCommandString.cpp \
+    models/Post/PostModelCommand.cpp
 
 HEADERS  += \
     factories/AbstractFactory.h \
@@ -34,7 +37,10 @@ HEADERS  += \
     ui/Post/PostWorkAreaWidget.h \
     ui/BaseCommandWidget.h \
     ui/BaseWorkAreaWidget.h \
-    MainWindow.h
+    MainWindow.h \
+    ui/Post/PostCommandString.h \
+    ui/BaseCommandString.h \
+    models/Post/PostModelCommand.h
 
 FORMS    += \
     ui/Post/PostCommandWidget.ui \

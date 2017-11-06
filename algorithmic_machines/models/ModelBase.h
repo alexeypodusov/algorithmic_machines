@@ -8,6 +8,7 @@ class ModelBase : public QObject
     Q_OBJECT
 public:
     explicit ModelBase(QObject *parent = 0);
+    virtual ~ModelBase();
 
 signals:
 

@@ -4,3 +4,8 @@ ModelBase::ModelBase(QObject *parent) : QObject(parent)
 {
 
 }
+
+ModelBase::~ModelBase()
+{
+
+}

@@ -47,6 +47,7 @@ PostWorkAreaWidget::init() {
 }
 
 
+
 QWidget *PostWorkAreaWidget::getWidget() {
     return this;
 }

@@ -3,3 +3,7 @@
 BaseCommandWidget::BaseCommandWidget() {
 
 }
+
+BaseCommandWidget::~BaseCommandWidget()
+{
+}

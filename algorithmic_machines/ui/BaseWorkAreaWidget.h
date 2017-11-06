@@ -8,6 +8,7 @@ class BaseWorkAreaWidget
 {
 public:
     explicit BaseWorkAreaWidget();
+    virtual ~BaseWorkAreaWidget();
     virtual QWidget* getWidget();
     virtual void updateSizeWidget();
     virtual void updateWorkArea();

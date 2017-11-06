@@ -47,7 +47,6 @@ private:
     int numberCarriage;
     init();
 
-
     // BaseWorkAreaWidget interface
 public:
     QWidget *getWidget();
