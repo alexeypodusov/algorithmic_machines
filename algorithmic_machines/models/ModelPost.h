@@ -28,6 +28,7 @@ public:
     void setComment(int numberCommand, QString comment);
 
     void insertCommandString(int numString);
+    void deleteCommandString(int numString);
 private:
     QList<bool> *cellsList;
     QList<PostModelCommand> *commandsList;

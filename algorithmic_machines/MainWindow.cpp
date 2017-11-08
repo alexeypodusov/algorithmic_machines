@@ -11,7 +11,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 }
 
 MainWindow::~MainWindow() {
+    commandWidgetList->clear();
     delete commandWidgetList;
+    workAreaWidgetList->clear();
     delete workAreaWidgetList;
     delete ui;
 }
@@ -36,4 +38,9 @@ MainWindow::initHardCode() {
 void MainWindow::on_pushButtonAddString_clicked()
 {
     commandWidgetList->at(ui->tabCommandWidget->currentIndex()).data()->onAddStringClicked();
+}
+
+void MainWindow::on_pushButtonDeleteString_clicked()
+{
+    commandWidgetList->at(ui->tabCommandWidget->currentIndex()).data()->onDeleteStringClicked();
 }

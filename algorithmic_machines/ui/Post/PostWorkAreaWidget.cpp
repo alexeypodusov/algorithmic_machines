@@ -15,6 +15,7 @@ PostWorkAreaWidget::PostWorkAreaWidget(QWidget *parent, ModelBase *model) :
 
 PostWorkAreaWidget::~PostWorkAreaWidget()
 {
+    cellList->clear();
     delete cellList;
     delete ui;
 }

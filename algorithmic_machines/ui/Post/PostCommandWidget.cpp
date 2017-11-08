@@ -12,6 +12,7 @@ PostCommandWidget::PostCommandWidget(QWidget *parent, ModelBase *model) :
 
 PostCommandWidget::~PostCommandWidget()
 {
+    stringsList->clear();
     delete stringsList;
     delete ui;
 }
@@ -87,4 +88,6 @@ PostCommandWidget::onAddStringClicked()
 
 PostCommandWidget::onDeleteStringClicked()
 {
+    model->deleteCommandString(stringsList->size()-1);
+    stringsList->removeLast();
 }

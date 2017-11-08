@@ -14,8 +14,10 @@ ModelPost::ModelPost(QObject *parent) : ModelBase(parent) {
 
 ModelPost::~ModelPost()
 {
+    cellsList->clear();
     delete cellsList;
-    //delete commandsList;
+    commandsList->clear();
+    delete commandsList;
 }
 
 int ModelPost::getCurrentCarriage() const
@@ -77,4 +79,9 @@ void ModelPost::insertCommandString(int numString)
     PostModelCommand command;
     command.number = numString;
     commandsList->insert(numString, command);
+}
+
+void ModelPost::deleteCommandString(int numString)
+{
+    commandsList->removeAt(numString);
 }
