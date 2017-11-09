@@ -85,3 +85,52 @@ void ModelPost::deleteCommandString(int numString)
 {
     commandsList->removeAt(numString);
 }
+
+bool ModelPost::executeCommand(int numberCommand)
+{
+    nextCommand = commandsList->at(numberCommand).transition;
+    switch(commandsList->at(numberCommand).commandType)
+    {
+        case PostModelCommand::CommandType::ADD_MARK: {
+            if (!cellsList->at(currentCarriage)) {
+                cellsList->operator [](currentCarriage) = true;
+            } else return false;
+            break;
+        }
+        case PostModelCommand::CommandType::DELETE_MARK: {
+            if (cellsList->at(currentCarriage)) {
+                cellsList->operator [](currentCarriage) = false;
+            } else return false;
+            break;
+        }
+        case PostModelCommand::CommandType::LEFT_STEP: {
+            if (currentCarriage > LEFT_BORDER_TAPE) {
+                currentCarriage--;
+            } else return false;
+            break;
+        }
+        case PostModelCommand::CommandType::RIGHT_STEP: {
+            if (currentCarriage < RIGHT_BORDER_TAPE) {
+                currentCarriage++;
+            } else return false;
+            break;
+        }
+        case PostModelCommand::CommandType::CHECK_MARK: {
+            if (!cellsList->at(currentCarriage)) {
+                nextCommand = commandsList->at(numberCommand).secondTransition;
+            } else return false;
+            break;
+        }
+        case PostModelCommand::CommandType::STOP: {
+            if (!cellsList->at(currentCarriage)) {
+                nextCommand = commandsList->at(numberCommand).secondTransition;
+            } else return false;
+            break;
+        }
+        default: {
+            return false;
+            break;
+        }
+    }
+    return true;
+}

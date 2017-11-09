@@ -29,6 +29,10 @@ public:
 
     void insertCommandString(int numString);
     void deleteCommandString(int numString);
+
+    // ModelBase interface
+    bool executeCommand(int numberCommand);
+
 private:
     QList<bool> *cellsList;
     QList<PostModelCommand> *commandsList;

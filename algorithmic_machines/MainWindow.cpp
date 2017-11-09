@@ -44,3 +44,8 @@ void MainWindow::on_pushButtonDeleteString_clicked()
 {
     commandWidgetList->at(ui->tabCommandWidget->currentIndex()).data()->onDeleteStringClicked();
 }
+
+void MainWindow::on_actionPlay_triggered()
+{
+    model->play();
+}
