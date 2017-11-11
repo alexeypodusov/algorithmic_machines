@@ -8,6 +8,7 @@ PostWorkAreaWidget::PostWorkAreaWidget(QWidget *parent, ModelBase *model) :
 {
     ui->setupUi(this);
     this->model = (ModelPost*)model;
+    connect(this->model, SIGNAL(cellsListChanded()), this, SLOT(updateWorkArea()));
     show();
     init();
 
@@ -15,8 +16,8 @@ PostWorkAreaWidget::PostWorkAreaWidget(QWidget *parent, ModelBase *model) :
 
 PostWorkAreaWidget::~PostWorkAreaWidget()
 {
-    cellList->clear();
-    delete cellList;
+    cellWidgetList->clear();
+    delete cellWidgetList;
     delete ui;
 }
 
@@ -27,21 +28,21 @@ void PostWorkAreaWidget::resizeEvent(QResizeEvent* event)
 
 PostWorkAreaWidget::init() {
 
-        cellList = new QList<QSharedPointer<PostCell> >();
+        cellWidgetList = new QList<QSharedPointer<PostCell> >();
 
         countCells = QApplication::desktop()->width()/(PostCell::WIDTH_CELL+6)+100;
-        numberCarriage = countCells/2;
+        numberWidgetCarriage = countCells/2;
 
         layoutScrollArea = new QHBoxLayout(this);
         for(int i = 0; i<countCells; i++) {
             PostCell *cell = new PostCell(this);
-            cellList->append(QSharedPointer<PostCell>(cell));
+            cellWidgetList->append(QSharedPointer<PostCell>(cell));
             layoutScrollArea->addWidget(cell->getCellWidget());
             connect(cell, SIGNAL(buttonClickedSignal(QString)), this, SLOT(onCellClicked(QString)));
         }
 
         updateWorkArea();
-        cellList->at(numberCarriage).data()->setCurrent();
+        cellWidgetList->at(numberWidgetCarriage).data()->setCurrent();
 
        ui->scrollArea->widget()->setLayout(layoutScrollArea);
 
@@ -61,38 +62,39 @@ void PostWorkAreaWidget::updateSizeWidget() {
 
     int widthScrollArea = ui->scrollArea->size().width();
 
-    int leftCellNumber = numberCarriage-(widthScrollArea/factor)/2;
+    int leftCellNumber = numberWidgetCarriage-(widthScrollArea/factor)/2;
     ui->scrollArea->horizontalScrollBar()->setValue(leftCellNumber*factor+3);
 }
 
 void PostWorkAreaWidget::updateWorkArea() {
     int currentModelCarriage = model->getCurrentCarriage();
-    for (int i = 0; i<cellList->size(); i++) {
-        int numberCell = currentModelCarriage-(numberCarriage-i);
+    for (int i = 0; i<cellWidgetList->size(); i++) {
+
+        //numberCarriage - порядокый номер ячейки виджета в layout, на которой находится каретка
+        //numberCell - порядковый номер яйчеки в ленте
+        int numberCell = currentModelCarriage-(numberWidgetCarriage-i);
 
         if(numberCell >= ModelPost::LEFT_BORDER_TAPE && numberCell <= ModelPost::RIGHT_BORDER_TAPE ) {
-            cellList->at(i).data()->getLabel()->setText(QString::number(numberCell));
-            cellList->at(i).data()->setMark(model->getMarkByNumberCell(numberCell));
-            if(!cellList->at(i).data()->isVisible()) {
-                    cellList->at(i).data()->setVisible(true);
+            cellWidgetList->at(i).data()->getLabel()->setText(QString::number(numberCell));
+            cellWidgetList->at(i).data()->setMark(model->getMarkByNumberCell(numberCell));
+            if(!cellWidgetList->at(i).data()->isVisible()) {
+                    cellWidgetList->at(i).data()->setVisible(true);
             }
         } else {
-            cellList->at(i).data()->setVisible(false);
+            cellWidgetList->at(i).data()->setVisible(false);
         }
     }
 }
 
 void PostWorkAreaWidget::on_LeftPushButton_clicked() {
      model->setCurrentCarriage(model->getCurrentCarriage()-1);
-     updateWorkArea();
+
 }
 
 void PostWorkAreaWidget::on_RightPushButton_clicked() {
     model->setCurrentCarriage(model->getCurrentCarriage()+1);
-    updateWorkArea();
 }
 
 void PostWorkAreaWidget::onCellClicked(QString numberCell) {
     model->changeSell(numberCell.toInt());
-    updateWorkArea();
 }

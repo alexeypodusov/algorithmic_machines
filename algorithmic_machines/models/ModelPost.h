@@ -14,7 +14,7 @@ public:
     ModelPost(QObject *parent = 0);
     ~ModelPost();
     int getCurrentCarriage() const;
-    void setCurrentCarriage(int value);
+    bool setCurrentCarriage(int value);
     bool getMarkByNumberCell(int numCell);
 
     void changeSell(int numCell);
@@ -32,6 +32,9 @@ public:
 
     // ModelBase interface
     bool executeCommand(int numberCommand);
+
+signals:
+    void cellsListChanded();
 
 private:
     QList<bool> *cellsList;

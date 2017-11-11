@@ -25,11 +25,14 @@ int ModelPost::getCurrentCarriage() const
     return currentCarriage;
 }
 
-void ModelPost::setCurrentCarriage(int value)
+bool ModelPost::setCurrentCarriage(int value)
 {
     if(value >= LEFT_BORDER_TAPE && value <= RIGHT_BORDER_TAPE) {
         currentCarriage = value;
+        emit cellsListChanded();
+        return true;
     }
+    return false;
 }
 
 bool ModelPost::getMarkByNumberCell(int numCell) {
@@ -41,11 +44,11 @@ bool ModelPost::getMarkByNumberCell(int numCell) {
 void ModelPost::changeSell(int numCell) {
     int numList = numCell + 1000;
     cellsList->operator [](numList) = !cellsList->at(numList);
+    emit cellsListChanded();
 }
 
 int ModelPost::getCommandsListSize()
 {
-
     return commandsList->size();
 }
 
@@ -93,26 +96,28 @@ bool ModelPost::executeCommand(int numberCommand)
     {
         case PostModelCommand::CommandType::ADD_MARK: {
             if (!cellsList->at(currentCarriage)) {
-                cellsList->operator [](currentCarriage) = true;
+                changeSell(currentCarriage);
             } else return false;
             break;
         }
         case PostModelCommand::CommandType::DELETE_MARK: {
             if (cellsList->at(currentCarriage)) {
-                cellsList->operator [](currentCarriage) = false;
+                changeSell(currentCarriage);
             } else return false;
             break;
         }
         case PostModelCommand::CommandType::LEFT_STEP: {
-            if (currentCarriage > LEFT_BORDER_TAPE) {
-                currentCarriage--;
-            } else return false;
+            int newCurrentCarriage = currentCarriage - 1;
+            if(!setCurrentCarriage(newCurrentCarriage)) {
+                return false;
+            }
             break;
         }
         case PostModelCommand::CommandType::RIGHT_STEP: {
-            if (currentCarriage < RIGHT_BORDER_TAPE) {
-                currentCarriage++;
-            } else return false;
+            int newCurrentCarriage = currentCarriage + 1;
+            if(!setCurrentCarriage(newCurrentCarriage)) {
+                return false;
+            }
             break;
         }
         case PostModelCommand::CommandType::CHECK_MARK: {

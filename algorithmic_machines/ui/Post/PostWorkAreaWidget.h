@@ -39,18 +39,20 @@ private slots:
 private:
     ModelPost *model;
 
-    QList<QSharedPointer<PostCell> > *cellList;
+    QList<QSharedPointer<PostCell> > *cellWidgetList;
     void resizeEvent(QResizeEvent *event);
     Ui::PostWorkAreaWidget *ui;
     QHBoxLayout *layoutScrollArea;
     int countCells;
-    int numberCarriage;
+    int numberWidgetCarriage;
     init();
 
     // BaseWorkAreaWidget interface
 public:
     QWidget *getWidget();
     void updateSizeWidget();
+
+public slots:
     void updateWorkArea();
 };
 
