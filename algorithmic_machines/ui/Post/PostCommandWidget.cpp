@@ -33,7 +33,6 @@ PostCommandWidget::init()
     for(int i = 0 ; i < commandListSize ; i++) {
         addCommandString(i);
     }
-
 }
 
 void PostCommandWidget::addCommandString(int numString)

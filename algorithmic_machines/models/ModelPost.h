@@ -14,6 +14,10 @@ public:
     const QString SUCCES_TITLE = QString::fromLocal8Bit("Конец программы");
     const QString SUCCES_TEXT = QString::fromLocal8Bit("Конец программы");
 
+    const QString ERROR_NULL_TYPE = QString::fromLocal8Bit("Не указана команда");
+    const QString ERROR_TRANSITION_NULL = QString::fromLocal8Bit("Не указан номер строки для перехода");
+    const QString ERROR_TRANSITION_NOT_EXIST = QString::fromLocal8Bit("Строки с таким номером не существует");
+
     const QString ERROR_TITLE = QString::fromLocal8Bit("Ошибка");
     const QString ERROR_BORDER = QString::fromLocal8Bit("Каретка вышла за пределы ленты!");
     const QString ERROR_MARK_TRUE = QString::fromLocal8Bit("Метка уже есть!");
@@ -40,6 +44,7 @@ public:
 
     // ModelBase interface
     bool executeCommand(int numberCommand);
+    bool checkValidationCommand(int numberCommand);
 
 signals:
     void cellsListChanded();
@@ -48,6 +53,7 @@ private:
     QList<bool> *cellsList;
     QList<PostModelCommand> *commandsList;
     int currentCarriage = 0;
+    bool checkTransitionNumber(int numberTransition);
 };
 
 #endif // MODELPOST_H

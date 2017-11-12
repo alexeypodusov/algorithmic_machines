@@ -12,6 +12,7 @@ public:
     explicit ModelBase(QObject *parent = 0);
     virtual ~ModelBase();
     virtual bool executeCommand(int numberCommand);
+    virtual bool checkValidationCommand(int numberCommand);
     void play();
     void playStep();
     int speedTimer = 500;

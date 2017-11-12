@@ -17,6 +17,11 @@ bool ModelBase::executeCommand(int numberCommand)
 
 }
 
+bool ModelBase::checkValidationCommand(int numberCommand)
+{
+
+}
+
 void ModelBase::play()
 {
     switch (statusPlay) {

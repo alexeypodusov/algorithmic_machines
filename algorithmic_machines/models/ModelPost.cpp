@@ -89,9 +89,48 @@ void ModelPost::deleteCommandString(int numString)
     commandsList->removeAt(numString);
 }
 
+bool ModelPost::checkValidationCommand(int numberCommand)
+{
+    if (commandsList->at(numberCommand).commandType
+            == PostModelCommand::CommandType::NULL_COMMAND) {
+          emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_NULL_TYPE, ERROR_TITLE);
+          return false;
+    }
+    if (commandsList->at(numberCommand).commandType
+            != PostModelCommand::CommandType::STOP) {
+        if (!checkTransitionNumber(commandsList->at(numberCommand).transition)) {
+            return false;
+        }
+
+        if (commandsList->at(numberCommand).commandType
+                == PostModelCommand::CommandType::CHECK_MARK)  {
+            if (!checkTransitionNumber(commandsList->at(numberCommand).secondTransition)) {
+                return false;
+            }
+        }
+    }
+}
+
+bool ModelPost::checkTransitionNumber(int numberTransition)
+{
+    if (numberTransition == -1) {
+        emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_TRANSITION_NULL, ERROR_TITLE);
+        return false;
+    }
+    if (numberTransition >= commandsList->size()) {
+        emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_TRANSITION_NOT_EXIST, ERROR_TITLE);
+        return false;
+    }
+}
+
 bool ModelPost::executeCommand(int numberCommand)
 {
     nextCommand = commandsList->at(numberCommand).transition;
+
+    if (!checkValidationCommand(numberCommand)) {
+        return false;
+    }
+
     switch(commandsList->at(numberCommand).commandType)
     {
         case PostModelCommand::CommandType::ADD_MARK: {
