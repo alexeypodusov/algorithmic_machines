@@ -40,7 +40,8 @@ HEADERS  += \
     MainWindow.h \
     ui/Post/PostCommandString.h \
     ui/BaseCommandString.h \
-    models/Post/PostModelCommand.h
+    models/Post/PostModelCommand.h \
+    ui/MessageType.h
 
 FORMS    += \
     ui/Post/PostCommandWidget.ui \

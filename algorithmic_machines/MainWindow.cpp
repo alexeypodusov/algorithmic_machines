@@ -3,7 +3,6 @@
 
 #include <factories/PostFactory.h>
 
-
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     initHardCode();
@@ -22,6 +21,7 @@ MainWindow::~MainWindow() {
 MainWindow::initHardCode() {
     factory = new PostFactory(this);
     model = factory->createModel(this);
+    connect(model, SIGNAL(sendMessage(MessageType, QString, QString)), this, SLOT(receiveMessage(MessageType, QString, QString)));
 
     commandWidgetList = new QList<QSharedPointer<BaseCommandWidget> >();
     commandWidgetList->append(QSharedPointer<BaseCommandWidget>(factory->createCommandWidget(this, model)));
@@ -48,4 +48,20 @@ void MainWindow::on_pushButtonDeleteString_clicked()
 void MainWindow::on_actionPlay_triggered()
 {
     model->play();
+}
+
+void MainWindow::receiveMessage(MessageType messageType, QString text, QString title)
+{
+    switch (messageType) {
+    case MessageType::MESSAGE_ERROR: {
+        QMessageBox::warning(this, title, text);
+        break;
+    }
+    case MessageType::MESSAGE_INFO: {
+        QMessageBox::information(this, title, text);
+        break;
+    }
+    default:
+        break;
+    }
 }

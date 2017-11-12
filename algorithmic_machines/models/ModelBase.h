@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
+#include <ui/MessageType.h>
 
 class ModelBase : public QObject
 {
@@ -28,9 +29,8 @@ protected:
     void changeStatusPlay(StatusPlay statusPlay);
 
 signals:
-
+    sendMessage(MessageType messageType, QString text, QString title);
 public slots:
-private slots:
     void executeWithTimer();
 };
 

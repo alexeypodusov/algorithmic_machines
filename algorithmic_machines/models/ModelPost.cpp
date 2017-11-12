@@ -97,18 +97,25 @@ bool ModelPost::executeCommand(int numberCommand)
         case PostModelCommand::CommandType::ADD_MARK: {
             if (!cellsList->at(currentCarriage)) {
                 changeSell(currentCarriage);
-            } else return false;
+            } else {
+                emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_MARK_TRUE, ERROR_TITLE);
+                return false;
+            }
             break;
         }
         case PostModelCommand::CommandType::DELETE_MARK: {
             if (cellsList->at(currentCarriage)) {
                 changeSell(currentCarriage);
-            } else return false;
+            } else {
+                emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_MARK_FALSE, ERROR_TITLE);
+                return false;
+            }
             break;
         }
         case PostModelCommand::CommandType::LEFT_STEP: {
             int newCurrentCarriage = currentCarriage - 1;
             if(!setCurrentCarriage(newCurrentCarriage)) {
+                emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_BORDER, ERROR_TITLE);
                 return false;
             }
             break;
@@ -116,6 +123,7 @@ bool ModelPost::executeCommand(int numberCommand)
         case PostModelCommand::CommandType::RIGHT_STEP: {
             int newCurrentCarriage = currentCarriage + 1;
             if(!setCurrentCarriage(newCurrentCarriage)) {
+                emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_BORDER, ERROR_TITLE);
                 return false;
             }
             break;
@@ -123,13 +131,12 @@ bool ModelPost::executeCommand(int numberCommand)
         case PostModelCommand::CommandType::CHECK_MARK: {
             if (!cellsList->at(currentCarriage)) {
                 nextCommand = commandsList->at(numberCommand).secondTransition;
-            } else return false;
+            }
             break;
         }
         case PostModelCommand::CommandType::STOP: {
-            if (!cellsList->at(currentCarriage)) {
-                nextCommand = commandsList->at(numberCommand).secondTransition;
-            } else return false;
+            sendMessage(MessageType::MESSAGE_INFO, SUCCES_TEXT, SUCCES_TITLE);
+            changeStatusPlay(StatusPlay::STOPPED);
             break;
         }
         default: {

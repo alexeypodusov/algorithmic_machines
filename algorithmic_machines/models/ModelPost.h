@@ -11,6 +11,14 @@ public:
     const static int LEFT_BORDER_TAPE=-999;
     const static int RIGHT_BORDER_TAPE=999;
 
+    const QString SUCCES_TITLE = QString::fromLocal8Bit("Конец программы");
+    const QString SUCCES_TEXT = QString::fromLocal8Bit("Конец программы");
+
+    const QString ERROR_TITLE = QString::fromLocal8Bit("Ошибка");
+    const QString ERROR_BORDER = QString::fromLocal8Bit("Каретка вышла за пределы ленты!");
+    const QString ERROR_MARK_TRUE = QString::fromLocal8Bit("Метка уже есть!");
+    const QString ERROR_MARK_FALSE = QString::fromLocal8Bit("Метка отсутствует!");
+
     ModelPost(QObject *parent = 0);
     ~ModelPost();
     int getCurrentCarriage() const;

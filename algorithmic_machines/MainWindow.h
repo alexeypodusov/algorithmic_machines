@@ -7,6 +7,8 @@
 #include <factories/AbstractFactory.h>
 #include <ui/Post/PostCommandWidget.h>
 #include <ui/BaseWorkAreaWidget.h>
+#include <QMessageBox>
+#include <ui/MessageType.h>
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +27,8 @@ private slots:
     void on_pushButtonDeleteString_clicked();
 
     void on_actionPlay_triggered();
+
+    void receiveMessage(MessageType messageType, QString text, QString title);
 
 private:
     Ui::MainWindow *ui;
