@@ -7,6 +7,7 @@ PostCommandString::PostCommandString(QWidget *parent) : BaseCommandString(parent
     numberStringLabel = new QLabel();
     numberStringLabel->setMinimumWidth(WIDTH_NUMBER_STRING);
     numberStringLabel->setFixedHeight(HEIGHT_STRING);
+    numberStringLabel->setAlignment(Qt::AlignCenter);
     stringLayout->addWidget(numberStringLabel);
 
     commandComboBox = new QComboBox();
@@ -26,7 +27,7 @@ PostCommandString::PostCommandString(QWidget *parent) : BaseCommandString(parent
     transitionLineEdit->setFixedWidth(WIDTH_TRANSITION_STRING);
     transitionLineEdit->setFixedHeight(HEIGHT_STRING);
     transitionLineEdit->setMaximumWidth(3);
-    transitionLineEdit->setValidator(new QIntValidator(0,999));
+    transitionLineEdit->setValidator(new QIntValidator(0, 999));
     connect(transitionLineEdit, SIGNAL(editingFinished()), this, SLOT(onTransitionEditedSlot()));
     stringLayout->addWidget(transitionLineEdit);
 
@@ -34,19 +35,24 @@ PostCommandString::PostCommandString(QWidget *parent) : BaseCommandString(parent
     secondTransitionLineEdit->setFixedWidth(WIDTH_TRANSITION_STRING);
     secondTransitionLineEdit->setFixedHeight(HEIGHT_STRING);
     transitionLineEdit->setMaximumWidth(3);
-    transitionLineEdit->setValidator(new QIntValidator(0,999));
+    transitionLineEdit->setValidator(new QIntValidator(0, 999));
     secondTransitionLineEdit->hide();
     connect(secondTransitionLineEdit, SIGNAL(editingFinished()), this, SLOT(onSecondTransitionEditedSlot()));
     stringLayout->addWidget(secondTransitionLineEdit);
 
     commentLineEdit = new QLineEdit();
     commentLineEdit->setMinimumWidth(WIDTH_COMMENT_STRING);
+    commentLineEdit->setFixedHeight(HEIGHT_STRING);
     commentLineEdit->setMaxLength(255);
     stringLayout->addWidget(commentLineEdit);
     connect(commentLineEdit, SIGNAL(editingFinished()), this, SLOT(onCommentEditedSlot()));
     stringLayout->setContentsMargins(0,0,0,0);
 
     this->setLayout(stringLayout);
+
+    this->setFixedHeight(HEIGHT_STRING);
+    this->setStyleSheet(NOSELECT_STRING_CSS);
+
 }
 
 PostCommandString::~PostCommandString()
@@ -123,6 +129,18 @@ void PostCommandString::setComment(QString comment)
     commentLineEdit->setText(comment);
 }
 
+void PostCommandString::setSelect()
+{
+    this->setStyleSheet(SELECT_STRING_CSS);
+    setFixedHeight(2*HEIGHT_STRING);
+}
+
+void PostCommandString::setDeselected()
+{
+    this->setStyleSheet(NOSELECT_STRING_CSS);
+    setFixedHeight(HEIGHT_STRING);
+}
+
 
 PostCommandString::onCommandTypeChangedSlot(int type)
 {
@@ -144,7 +162,7 @@ PostCommandString::onTransitionEditedSlot()
 
 PostCommandString::onSecondTransitionEditedSlot()
 {
-    emit  onTransitionEditedSignal(numberStringLabel->text().toInt(), getSecondTransition());
+    emit  onSecondTransitionEditedSignal(numberStringLabel->text().toInt(), getSecondTransition());
 }
 
 PostCommandString::onCommentEditedSlot()

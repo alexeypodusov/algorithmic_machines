@@ -109,6 +109,7 @@ bool ModelPost::checkValidationCommand(int numberCommand)
             }
         }
     }
+    return true;
 }
 
 bool ModelPost::checkTransitionNumber(int numberTransition)
@@ -121,6 +122,7 @@ bool ModelPost::checkTransitionNumber(int numberTransition)
         emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_TRANSITION_NOT_EXIST, ERROR_TITLE);
         return false;
     }
+    return true;
 }
 
 bool ModelPost::executeCommand(int numberCommand)

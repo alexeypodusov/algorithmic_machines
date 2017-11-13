@@ -40,6 +40,9 @@ public:
 
    QString getComment();
    void setComment(QString comment);
+
+   void setSelect();
+   void setDeselected();
 private:
    QHBoxLayout *stringLayout;
    QLabel *numberStringLabel;

@@ -2,9 +2,8 @@
 #define BASECOMMANDWIDGET_H
 
 #include "BaseCommandString.h"
-
 #include <QWidget>
-
+#include <models/ModelBase.h>
 
 class BaseCommandWidget {
 public:
@@ -13,6 +12,7 @@ public:
     virtual QWidget *getWidget()=0;
     virtual onAddStringClicked()=0;
     virtual onDeleteStringClicked()=0;
+    virtual void onChangedStatusPlay(ModelBase::StatusPlay statusPlay)=0;
 protected:
 };
 

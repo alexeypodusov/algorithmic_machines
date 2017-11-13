@@ -14,12 +14,10 @@ ModelBase::~ModelBase()
 
 bool ModelBase::executeCommand(int numberCommand)
 {
-
 }
 
 bool ModelBase::checkValidationCommand(int numberCommand)
 {
-
 }
 
 void ModelBase::play()
@@ -42,17 +40,16 @@ void ModelBase::play()
     }
 
     executeWithTimer();
-
 }
 
 void ModelBase::executeWithTimer()
 {
     if (statusPlay != StatusPlay::PLAYING) return;
 
+    emit selectCommand(nextCommand);
     if (executeCommand(nextCommand)) {
         timer->start(speedTimer);
     } else changeStatusPlay(StatusPlay::STOPPED);
-
 }
 
 
@@ -71,12 +68,14 @@ void ModelBase::playStep()
         break;
     }
 
+    emit selectCommand(nextCommand);
     if (!executeCommand(nextCommand)) changeStatusPlay(StatusPlay::STOPPED);
 }
 
 void ModelBase::changeStatusPlay(ModelBase::StatusPlay statusPlay)
 {
     this->statusPlay = statusPlay;
+    emit changedStatusPlaySignal(statusPlay);
 }
 
 

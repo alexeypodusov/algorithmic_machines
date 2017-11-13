@@ -9,6 +9,7 @@
 #include <ui/BaseWorkAreaWidget.h>
 #include <QMessageBox>
 #include <ui/MessageType.h>
+#include <models/ModelBase.h>
 
 namespace Ui {
 class MainWindow;
@@ -29,6 +30,7 @@ private slots:
     void on_actionPlay_triggered();
 
     void receiveMessage(MessageType messageType, QString text, QString title);
+    void onChangedStatusPlay(ModelBase::StatusPlay statusPlay);
 
 private:
     Ui::MainWindow *ui;

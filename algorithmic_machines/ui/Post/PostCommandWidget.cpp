@@ -7,6 +7,7 @@ PostCommandWidget::PostCommandWidget(QWidget *parent, ModelBase *model) :
 {
     ui->setupUi(this);
     this->model = (ModelPost*)model;
+    connect(this->model, SIGNAL(selectCommand(int)), this, SLOT(onSelectedCommand(int)));
     init();
 }
 
@@ -53,6 +54,13 @@ void PostCommandWidget::addCommandString(int numString)
     commandStringsLayout->addWidget(command);
 }
 
+void PostCommandWidget::deselectCommand()
+{
+    if (currentSelectedCommand != -1) {
+         stringsList->at(currentSelectedCommand).data()->setDeselected();
+    }
+}
+
 QWidget *PostCommandWidget::getWidget()
 {
     return this;
@@ -78,6 +86,13 @@ PostCommandWidget::onCommentEdited(int numberString, QString comment)
     model->setComment(numberString, comment);
 }
 
+PostCommandWidget::onSelectedCommand(int numberCommand)
+{
+    deselectCommand();
+    stringsList->at(numberCommand).data()->setSelect();
+    currentSelectedCommand = numberCommand;
+}
+
 
 PostCommandWidget::onAddStringClicked()
 {
@@ -89,4 +104,13 @@ PostCommandWidget::onDeleteStringClicked()
 {
     model->deleteCommandString(stringsList->size()-1);
     stringsList->removeLast();
+}
+
+
+void PostCommandWidget::onChangedStatusPlay(ModelBase::StatusPlay statusPlay)
+{
+    if (statusPlay == ModelBase::StatusPlay::STOPPED) {
+        deselectCommand();
+        currentSelectedCommand = -1;
+    }
 }

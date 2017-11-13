@@ -33,16 +33,22 @@ private:
     init();
 
     void addCommandString(int numString);
+    void deselectCommand();
+
+    int currentSelectedCommand = -1;
+
     // BaseCommandWidget interface
-public:
     QWidget *getWidget();
     onAddStringClicked();
     onDeleteStringClicked();
+    void onChangedStatusPlay(ModelBase::StatusPlay statusPlay);
 private slots:
     onCommandTypeChanged(int numberString, PostModelCommand::CommandType type);
     onTransitionEdited(int numberString, int transition);
     onSecondTransitionEdited(int numberString, int transition);
     onCommentEdited(int numberString, QString comment);
+
+    onSelectedCommand(int numberCommand);
 };
 
 #endif // POSTCOMMANDWIDGET_H

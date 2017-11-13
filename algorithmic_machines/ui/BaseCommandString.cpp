@@ -1,8 +1,8 @@
 #include "BaseCommandString.h"
 
-BaseCommandString::BaseCommandString(QWidget *parent) : QWidget(parent)
+BaseCommandString::BaseCommandString(QWidget *parent) : QFrame(parent)
 {
-
+     setObjectName("commandString");
 }
 
 BaseCommandString::~BaseCommandString()

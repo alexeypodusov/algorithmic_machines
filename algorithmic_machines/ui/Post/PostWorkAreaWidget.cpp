@@ -27,7 +27,6 @@ void PostWorkAreaWidget::resizeEvent(QResizeEvent* event)
 }
 
 PostWorkAreaWidget::init() {
-
         cellWidgetList = new QList<QSharedPointer<PostCell> >();
 
         countCells = QApplication::desktop()->width()/(PostCell::WIDTH_CELL+6)+100;
@@ -45,7 +44,6 @@ PostWorkAreaWidget::init() {
         cellWidgetList->at(numberWidgetCarriage).data()->setCurrent();
 
        ui->scrollArea->widget()->setLayout(layoutScrollArea);
-
 }
 
 
