@@ -18,11 +18,11 @@ MainWindow::~MainWindow() {
 }
 
 //пока хардкод
-MainWindow::initHardCode() {
+void MainWindow::initHardCode() {
     factory = new PostFactory(this);
     model = factory->createModel(this);
     connect(model, SIGNAL(sendMessage(MessageType, QString, QString)), this, SLOT(receiveMessage(MessageType, QString, QString)));
-    connect(model, SIGNAL(changedStatusPlaySignal(ModelBase::StatusPlay)), this, SLOT(onChangedStatusPlay(ModelBase::StatusPlay)));
+    connect(model, SIGNAL(changedStatusPlaySignal(StatusPlay)), this, SLOT(onChangedStatusPlay(StatusPlay)));
 
     commandWidgetList = new QList<QSharedPointer<BaseCommandWidget> >();
     commandWidgetList->append(QSharedPointer<BaseCommandWidget>(factory->createCommandWidget(this, model)));
@@ -67,7 +67,7 @@ void MainWindow::receiveMessage(MessageType messageType, QString text, QString t
     }
 }
 
-void MainWindow::onChangedStatusPlay(ModelBase::StatusPlay statusPlay)
+void MainWindow::onChangedStatusPlay(StatusPlay statusPlay)
 {
      commandWidgetList->at(ui->tabCommandWidget->currentIndex()).data()->onChangedStatusPlay(statusPlay);
 }

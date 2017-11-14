@@ -13,9 +13,9 @@ public:
     explicit PostFactory(QObject *parent = 0);
 
     // AbstractFactory interface
-    ModelBase *createModel(QWidget *parent) override;
-    BaseCommandWidget *createCommandWidget(QWidget *parent, ModelBase *model) override;
-    BaseWorkAreaWidget *createWorkAreaWidget(QWidget *parent, ModelBase *model) override;
+    ModelBase *createModel(QWidget *parent);
+    BaseCommandWidget *createCommandWidget(QWidget *parent, ModelBase *model);
+    BaseWorkAreaWidget *createWorkAreaWidget(QWidget *parent, ModelBase *model);
 
 };
 

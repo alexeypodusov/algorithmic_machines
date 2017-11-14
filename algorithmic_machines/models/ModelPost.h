@@ -34,7 +34,7 @@ public:
     int getCommandsListSize();
     PostModelCommand getPostCommand(int numberCommand);
 
-    void setCommandType(int numberCommand, PostModelCommand::CommandType type);
+    void setCommandType(int numberCommand, PostCommandType type);
     void setTransition(int numberCommand, int transition);
     void setSecondTransition(int numberCommand, int transition);
     void setComment(int numberCommand, QString comment);

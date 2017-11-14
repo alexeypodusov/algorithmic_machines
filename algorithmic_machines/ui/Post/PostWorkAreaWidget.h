@@ -45,7 +45,7 @@ private:
     QHBoxLayout *layoutScrollArea;
     int countCells;
     int numberWidgetCarriage;
-    init();
+    void init();
 
     // BaseWorkAreaWidget interface
 public:

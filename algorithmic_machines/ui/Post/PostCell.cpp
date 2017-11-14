@@ -52,7 +52,7 @@ bool PostCell::isVisible() {
     return pushButton->isVisible() && label->isVisible();
 }
 
-PostCell::onButtonClickedSlot(bool b) {
+void PostCell::onButtonClickedSlot(bool b) {
     emit buttonClickedSignal(getNumber());
 }
 

@@ -72,7 +72,7 @@ void ModelBase::playStep()
     if (!executeCommand(nextCommand)) changeStatusPlay(StatusPlay::STOPPED);
 }
 
-void ModelBase::changeStatusPlay(ModelBase::StatusPlay statusPlay)
+void ModelBase::changeStatusPlay(StatusPlay statusPlay)
 {
     this->statusPlay = statusPlay;
     emit changedStatusPlaySignal(statusPlay);

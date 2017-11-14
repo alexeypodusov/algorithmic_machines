@@ -11,7 +11,7 @@ PostModelCommand::~PostModelCommand()
 }
 
 PostModelCommand::PostModelCommand(int number,
-                                   PostModelCommand::CommandType commandType,
+                                   PostCommandType commandType,
                                    int transtion,
                                    int secondTransition,
                                    QString comment)

@@ -29,8 +29,8 @@ public:
    int getNumberString();
    void setNumberString(int number);
 
-   PostModelCommand::CommandType getCommandType();
-   void setCommandType(PostModelCommand::CommandType type);
+   PostCommandType getCommandType();
+   void setCommandType(PostCommandType type);
 
    int getTransition();
    void setTransition(int transition);
@@ -52,15 +52,15 @@ private:
    QLineEdit *commentLineEdit;
 
 signals:
-    onCommandTypeChangedSignal(int numberString, PostModelCommand::CommandType commandType);
-    onTransitionEditedSignal(int numberString, int transition);
-    onSecondTransitionEditedSignal(int numberString, int transition);
-    onCommentEditedSignal(int numberString, QString comment);
+    void onCommandTypeChangedSignal(int numberString, PostCommandType commandType);
+    void onTransitionEditedSignal(int numberString, int transition);
+    void onSecondTransitionEditedSignal(int numberString, int transition);
+    void onCommentEditedSignal(int numberString, QString comment);
 private slots:
-    onCommandTypeChangedSlot(int type);
-    onTransitionEditedSlot();
-    onSecondTransitionEditedSlot();
-    onCommentEditedSlot();
+    void onCommandTypeChangedSlot(int type);
+    void onTransitionEditedSlot();
+    void onSecondTransitionEditedSlot();
+    void onCommentEditedSlot();
 };
 
 #endif // POSTCOMMANDSTRING_H

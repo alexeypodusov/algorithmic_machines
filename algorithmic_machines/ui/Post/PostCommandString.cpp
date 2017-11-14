@@ -82,12 +82,12 @@ void PostCommandString::setNumberString(int number)
     numberStringLabel->setText(QString::number(number));
 }
 
-PostModelCommand::CommandType PostCommandString::getCommandType()
+PostCommandType PostCommandString::getCommandType()
 {
-      return static_cast<PostModelCommand::CommandType>(commandComboBox->currentIndex());
+      return static_cast<PostCommandType>(commandComboBox->currentIndex());
 }
 
-void PostCommandString::setCommandType(PostModelCommand::CommandType type)
+void PostCommandString::setCommandType(PostCommandType type)
 {
      commandComboBox->setCurrentIndex(static_cast<int>(type));
 }
@@ -142,10 +142,10 @@ void PostCommandString::setDeselected()
 }
 
 
-PostCommandString::onCommandTypeChangedSlot(int type)
+void PostCommandString::onCommandTypeChangedSlot(int type)
 {
-    PostModelCommand::CommandType commandType = static_cast<PostModelCommand::CommandType>(type);
-    if (commandType == PostModelCommand::CommandType::CHECK_MARK) {
+    PostCommandType commandType = static_cast<PostCommandType>(type);
+    if (commandType == PostCommandType::CHECK_MARK) {
         secondTransitionLineEdit->show();
     } else {
         secondTransitionLineEdit->hide();
@@ -155,17 +155,17 @@ PostCommandString::onCommandTypeChangedSlot(int type)
 
 }
 
-PostCommandString::onTransitionEditedSlot()
+void PostCommandString::onTransitionEditedSlot()
 {
     emit  onTransitionEditedSignal(numberStringLabel->text().toInt(), getTransition());
 }
 
-PostCommandString::onSecondTransitionEditedSlot()
+void PostCommandString::onSecondTransitionEditedSlot()
 {
     emit  onSecondTransitionEditedSignal(numberStringLabel->text().toInt(), getSecondTransition());
 }
 
-PostCommandString::onCommentEditedSlot()
+void PostCommandString::onCommentEditedSlot()
 {
     emit onCommentEditedSignal(numberStringLabel->text().toInt(), getComment());
 }

@@ -41,7 +41,9 @@ HEADERS  += \
     ui/Post/PostCommandString.h \
     ui/BaseCommandString.h \
     models/Post/PostModelCommand.h \
-    ui/MessageType.h
+    ui/MessageType.h \
+    models/Post/PostCommandType.h \
+    models/StatusPlay.h
 
 FORMS    += \
     ui/Post/PostCommandWidget.ui \

@@ -26,7 +26,7 @@ void PostWorkAreaWidget::resizeEvent(QResizeEvent* event)
     updateSizeWidget();
 }
 
-PostWorkAreaWidget::init() {
+void PostWorkAreaWidget::init() {
         cellWidgetList = new QList<QSharedPointer<PostCell> >();
 
         countCells = QApplication::desktop()->width()/(PostCell::WIDTH_CELL+6)+100;

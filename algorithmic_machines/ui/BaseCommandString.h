@@ -19,10 +19,6 @@ public:
                                           "padding: 0px;"
                                           "border:0px solid green;"
                                       "}";
-
-signals:
-
-public slots:
 };
 
 #endif // BASECOMMANDSTRING_H

@@ -3,18 +3,13 @@
 
 #include <QObject>
 #include <QTimer>
+#include <models/StatusPlay.h>
 #include <ui/MessageType.h>
 
 class ModelBase : public QObject
 {
     Q_OBJECT
 public:
-    enum class StatusPlay {
-        STOPPED,
-        PLAYING,
-        ON_PAUSE
-    };
-
     explicit ModelBase(QObject *parent = 0);
     virtual ~ModelBase();
     virtual bool executeCommand(int numberCommand);
@@ -32,9 +27,9 @@ protected:
     void changeStatusPlay(StatusPlay statusPlay);
 
 signals:
-    sendMessage(MessageType messageType, QString text, QString title);
-    selectCommand(int numberCommand);
-    changedStatusPlaySignal(ModelBase::StatusPlay statusPlay);
+    void sendMessage(MessageType messageType, QString text, QString title);
+    void selectCommand(int numberCommand);
+    void changedStatusPlaySignal(StatusPlay statusPlay);
 public slots:
     void executeWithTimer();
 };

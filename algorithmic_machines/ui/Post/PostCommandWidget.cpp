@@ -18,7 +18,7 @@ PostCommandWidget::~PostCommandWidget()
     delete ui;
 }
 
-PostCommandWidget::init()
+void PostCommandWidget::init()
 {
     stringsList = new QList<QSharedPointer<PostCommandString> >();
 
@@ -47,7 +47,7 @@ void PostCommandWidget::addCommandString(int numString)
     command->setSecondTransition(commandModel.secondTransition);
     command->setComment(commandModel.comment);
 
-    connect(command, SIGNAL(onCommandTypeChangedSignal(int, PostModelCommand::CommandType)), this, SLOT(onCommandTypeChanged(int, PostModelCommand::CommandType)));
+    connect(command, SIGNAL(onCommandTypeChangedSignal(int, PostCommandType)), this, SLOT(onCommandTypeChanged(int, PostCommandType)));
     connect(command, SIGNAL(onTransitionEditedSignal(int,int)), this, SLOT(onTransitionEdited(int, int)));
     connect(command, SIGNAL(onSecondTransitionEditedSignal(int,int)), this, SLOT(onSecondTransitionEdited(int, int)));
     connect(command, SIGNAL(onCommentEditedSignal(int, QString)), this, SLOT(onCommentEdited(int, QString)));
@@ -66,22 +66,22 @@ QWidget *PostCommandWidget::getWidget()
     return this;
 }
 
-PostCommandWidget::onCommandTypeChanged(int numberString, PostModelCommand::CommandType type)
+void PostCommandWidget::onCommandTypeChanged(int numberString, PostCommandType type)
 {
     model->setCommandType(numberString, type);
 }
 
-PostCommandWidget::onTransitionEdited(int numberString, int transition)
+void PostCommandWidget::onTransitionEdited(int numberString, int transition)
 {
     model->setTransition(numberString, transition);
 }
 
-PostCommandWidget::onSecondTransitionEdited(int numberString, int transition)
+void PostCommandWidget::onSecondTransitionEdited(int numberString, int transition)
 {
     model->setSecondTransition(numberString, transition);
 }
 
-PostCommandWidget::onCommentEdited(int numberString, QString comment)
+void PostCommandWidget::onCommentEdited(int numberString, QString comment)
 {
     model->setComment(numberString, comment);
 }
@@ -94,22 +94,22 @@ PostCommandWidget::onSelectedCommand(int numberCommand)
 }
 
 
-PostCommandWidget::onAddStringClicked()
+void PostCommandWidget::onAddStringClicked()
 {
     model->insertCommandString(stringsList->size());
     addCommandString(stringsList->size());
 }
 
-PostCommandWidget::onDeleteStringClicked()
+void PostCommandWidget::onDeleteStringClicked()
 {
     model->deleteCommandString(stringsList->size()-1);
     stringsList->removeLast();
 }
 
 
-void PostCommandWidget::onChangedStatusPlay(ModelBase::StatusPlay statusPlay)
+void PostCommandWidget::onChangedStatusPlay(StatusPlay statusPlay)
 {
-    if (statusPlay == ModelBase::StatusPlay::STOPPED) {
+    if (statusPlay == StatusPlay::STOPPED) {
         deselectCommand();
         currentSelectedCommand = -1;
     }

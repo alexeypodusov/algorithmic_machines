@@ -30,7 +30,7 @@ private:
     QVBoxLayout *commandStringsLayout;
     QList<QSharedPointer<PostCommandString> > *stringsList;
 
-    init();
+    void init();
 
     void addCommandString(int numString);
     void deselectCommand();
@@ -39,14 +39,14 @@ private:
 
     // BaseCommandWidget interface
     QWidget *getWidget();
-    onAddStringClicked();
-    onDeleteStringClicked();
-    void onChangedStatusPlay(ModelBase::StatusPlay statusPlay);
+    void onAddStringClicked();
+    void onDeleteStringClicked();
+    void onChangedStatusPlay(StatusPlay statusPlay);
 private slots:
-    onCommandTypeChanged(int numberString, PostModelCommand::CommandType type);
-    onTransitionEdited(int numberString, int transition);
-    onSecondTransitionEdited(int numberString, int transition);
-    onCommentEdited(int numberString, QString comment);
+    void onCommandTypeChanged(int numberString, PostCommandType type);
+    void onTransitionEdited(int numberString, int transition);
+    void onSecondTransitionEdited(int numberString, int transition);
+    void onCommentEdited(int numberString, QString comment);
 
     onSelectedCommand(int numberCommand);
 };

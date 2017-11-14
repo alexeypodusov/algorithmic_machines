@@ -30,19 +30,18 @@ private slots:
     void on_actionPlay_triggered();
 
     void receiveMessage(MessageType messageType, QString text, QString title);
-    void onChangedStatusPlay(ModelBase::StatusPlay statusPlay);
+    void onChangedStatusPlay(StatusPlay statusPlay);
 
 private:
     Ui::MainWindow *ui;
 
-    initHardCode();
+    void initHardCode();
 
     AbstractFactory *factory;
     ModelBase *model;
 
     QList<QSharedPointer<BaseCommandWidget> >* commandWidgetList;
     QList<QSharedPointer<BaseWorkAreaWidget> >* workAreaWidgetList;
-
 };
 
 #endif // MAINWINDOW_H

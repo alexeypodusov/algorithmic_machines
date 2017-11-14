@@ -57,7 +57,7 @@ PostModelCommand ModelPost::getPostCommand(int numberCommand)
     return commandsList->at(numberCommand);
 }
 
-void ModelPost::setCommandType(int numberCommand, PostModelCommand::CommandType type)
+void ModelPost::setCommandType(int numberCommand, PostCommandType type)
 {
     commandsList->at(numberCommand).commandType = type;
 }
@@ -92,18 +92,18 @@ void ModelPost::deleteCommandString(int numString)
 bool ModelPost::checkValidationCommand(int numberCommand)
 {
     if (commandsList->at(numberCommand).commandType
-            == PostModelCommand::CommandType::NULL_COMMAND) {
+            == PostCommandType::NULL_COMMAND) {
           emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_NULL_TYPE, ERROR_TITLE);
           return false;
     }
     if (commandsList->at(numberCommand).commandType
-            != PostModelCommand::CommandType::STOP) {
+            != PostCommandType::STOP) {
         if (!checkTransitionNumber(commandsList->at(numberCommand).transition)) {
             return false;
         }
 
         if (commandsList->at(numberCommand).commandType
-                == PostModelCommand::CommandType::CHECK_MARK)  {
+                == PostCommandType::CHECK_MARK)  {
             if (!checkTransitionNumber(commandsList->at(numberCommand).secondTransition)) {
                 return false;
             }
@@ -135,7 +135,7 @@ bool ModelPost::executeCommand(int numberCommand)
 
     switch(commandsList->at(numberCommand).commandType)
     {
-        case PostModelCommand::CommandType::ADD_MARK: {
+        case PostCommandType::ADD_MARK: {
             if (!cellsList->at(currentCarriage)) {
                 changeSell(currentCarriage);
             } else {
@@ -144,7 +144,7 @@ bool ModelPost::executeCommand(int numberCommand)
             }
             break;
         }
-        case PostModelCommand::CommandType::DELETE_MARK: {
+        case PostCommandType::DELETE_MARK: {
             if (cellsList->at(currentCarriage)) {
                 changeSell(currentCarriage);
             } else {
@@ -153,7 +153,7 @@ bool ModelPost::executeCommand(int numberCommand)
             }
             break;
         }
-        case PostModelCommand::CommandType::LEFT_STEP: {
+        case PostCommandType::LEFT_STEP: {
             int newCurrentCarriage = currentCarriage - 1;
             if(!setCurrentCarriage(newCurrentCarriage)) {
                 emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_BORDER, ERROR_TITLE);
@@ -161,7 +161,7 @@ bool ModelPost::executeCommand(int numberCommand)
             }
             break;
         }
-        case PostModelCommand::CommandType::RIGHT_STEP: {
+        case PostCommandType::RIGHT_STEP: {
             int newCurrentCarriage = currentCarriage + 1;
             if(!setCurrentCarriage(newCurrentCarriage)) {
                 emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_BORDER, ERROR_TITLE);
@@ -169,13 +169,13 @@ bool ModelPost::executeCommand(int numberCommand)
             }
             break;
         }
-        case PostModelCommand::CommandType::CHECK_MARK: {
+        case PostCommandType::CHECK_MARK: {
             if (!cellsList->at(currentCarriage)) {
                 nextCommand = commandsList->at(numberCommand).secondTransition;
             }
             break;
         }
-        case PostModelCommand::CommandType::STOP: {
+        case PostCommandType::STOP: {
             sendMessage(MessageType::MESSAGE_INFO, SUCCES_TEXT, SUCCES_TITLE);
             changeStatusPlay(StatusPlay::STOPPED);
             break;

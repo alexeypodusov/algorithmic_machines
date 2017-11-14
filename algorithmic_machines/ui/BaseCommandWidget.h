@@ -10,9 +10,9 @@ public:
     explicit BaseCommandWidget();
     virtual ~BaseCommandWidget();
     virtual QWidget *getWidget()=0;
-    virtual onAddStringClicked()=0;
-    virtual onDeleteStringClicked()=0;
-    virtual void onChangedStatusPlay(ModelBase::StatusPlay statusPlay)=0;
+    virtual void onAddStringClicked()=0;
+    virtual void onDeleteStringClicked()=0;
+    virtual void onChangedStatusPlay(StatusPlay statusPlay)=0;
 protected:
 };
 
