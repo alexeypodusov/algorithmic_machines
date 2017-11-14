@@ -1,7 +1,7 @@
 #ifndef POSTCOMMANDTYPE_H
 #define POSTCOMMANDTYPE_H
 
-enum class PostCommandType {
+enum PostCommandType {
     NULL_COMMAND,
     ADD_MARK,
     DELETE_MARK,

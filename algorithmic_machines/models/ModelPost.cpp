@@ -92,18 +92,18 @@ void ModelPost::deleteCommandString(int numString)
 bool ModelPost::checkValidationCommand(int numberCommand)
 {
     if (commandsList->at(numberCommand).commandType
-            == PostCommandType::NULL_COMMAND) {
-          emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_NULL_TYPE, ERROR_TITLE);
+            == NULL_COMMAND) {
+          emit sendMessage(MESSAGE_ERROR, ERROR_NULL_TYPE, ERROR_TITLE);
           return false;
     }
     if (commandsList->at(numberCommand).commandType
-            != PostCommandType::STOP) {
+            != STOP) {
         if (!checkTransitionNumber(commandsList->at(numberCommand).transition)) {
             return false;
         }
 
         if (commandsList->at(numberCommand).commandType
-                == PostCommandType::CHECK_MARK)  {
+                == CHECK_MARK)  {
             if (!checkTransitionNumber(commandsList->at(numberCommand).secondTransition)) {
                 return false;
             }
@@ -115,11 +115,11 @@ bool ModelPost::checkValidationCommand(int numberCommand)
 bool ModelPost::checkTransitionNumber(int numberTransition)
 {
     if (numberTransition == -1) {
-        emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_TRANSITION_NULL, ERROR_TITLE);
+        emit sendMessage(MESSAGE_ERROR, ERROR_TRANSITION_NULL, ERROR_TITLE);
         return false;
     }
     if (numberTransition >= commandsList->size()) {
-        emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_TRANSITION_NOT_EXIST, ERROR_TITLE);
+        emit sendMessage(MESSAGE_ERROR, ERROR_TRANSITION_NOT_EXIST, ERROR_TITLE);
         return false;
     }
     return true;
@@ -135,49 +135,49 @@ bool ModelPost::executeCommand(int numberCommand)
 
     switch(commandsList->at(numberCommand).commandType)
     {
-        case PostCommandType::ADD_MARK: {
+        case ADD_MARK: {
             if (!cellsList->at(currentCarriage)) {
                 changeSell(currentCarriage);
             } else {
-                emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_MARK_TRUE, ERROR_TITLE);
+                emit sendMessage(MESSAGE_ERROR, ERROR_MARK_TRUE, ERROR_TITLE);
                 return false;
             }
             break;
         }
-        case PostCommandType::DELETE_MARK: {
+        case DELETE_MARK: {
             if (cellsList->at(currentCarriage)) {
                 changeSell(currentCarriage);
             } else {
-                emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_MARK_FALSE, ERROR_TITLE);
+                emit sendMessage(MESSAGE_ERROR, ERROR_MARK_FALSE, ERROR_TITLE);
                 return false;
             }
             break;
         }
-        case PostCommandType::LEFT_STEP: {
+        case LEFT_STEP: {
             int newCurrentCarriage = currentCarriage - 1;
             if(!setCurrentCarriage(newCurrentCarriage)) {
-                emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_BORDER, ERROR_TITLE);
+                emit sendMessage(MESSAGE_ERROR, ERROR_BORDER, ERROR_TITLE);
                 return false;
             }
             break;
         }
-        case PostCommandType::RIGHT_STEP: {
+        case RIGHT_STEP: {
             int newCurrentCarriage = currentCarriage + 1;
             if(!setCurrentCarriage(newCurrentCarriage)) {
-                emit sendMessage(MessageType::MESSAGE_ERROR, ERROR_BORDER, ERROR_TITLE);
+                emit sendMessage(MESSAGE_ERROR, ERROR_BORDER, ERROR_TITLE);
                 return false;
             }
             break;
         }
-        case PostCommandType::CHECK_MARK: {
+        case CHECK_MARK: {
             if (!cellsList->at(currentCarriage)) {
                 nextCommand = commandsList->at(numberCommand).secondTransition;
             }
             break;
         }
-        case PostCommandType::STOP: {
-            sendMessage(MessageType::MESSAGE_INFO, SUCCES_TEXT, SUCCES_TITLE);
-            changeStatusPlay(StatusPlay::STOPPED);
+        case STOP: {
+            sendMessage(MESSAGE_INFO, SUCCES_TEXT, SUCCES_TITLE);
+            changeStatusPlay(STOPPED);
             break;
         }
         default: {

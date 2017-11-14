@@ -1,5 +1,5 @@
 #include "PostWorkAreaWidget.h"
-#include "ui_postworkareawidget.h"
+#include "ui_PostWorkAreaWidget.h"
 
 
 PostWorkAreaWidget::PostWorkAreaWidget(QWidget *parent, ModelBase *model) :

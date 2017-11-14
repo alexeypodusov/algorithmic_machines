@@ -1,7 +1,7 @@
 #ifndef MESSAGETYPE_H
 #define MESSAGETYPE_H
 
-enum class MessageType {
+enum MessageType {
     MESSAGE_ERROR,
     MESSAGE_INFO
 };

@@ -13,7 +13,6 @@
 #include <QScrollBar>
 #include <models/ModelBase.h>
 #include <models/ModelPost.h>
-#include <qDebug.h>
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QSize>

@@ -54,11 +54,11 @@ void MainWindow::on_actionPlay_triggered()
 void MainWindow::receiveMessage(MessageType messageType, QString text, QString title)
 {
     switch (messageType) {
-    case MessageType::MESSAGE_ERROR: {
+    case MESSAGE_ERROR: {
         QMessageBox::warning(this, title, text);
         break;
     }
-    case MessageType::MESSAGE_INFO: {
+    case MESSAGE_INFO: {
         QMessageBox::information(this, title, text);
         break;
     }

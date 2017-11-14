@@ -1,5 +1,5 @@
 #include "PostCommandWidget.h"
-#include "ui_postcommandwidget.h"
+#include "ui_PostCommandWidget.h"
 
 PostCommandWidget::PostCommandWidget(QWidget *parent, ModelBase *model) :
     QWidget(parent),
@@ -86,7 +86,7 @@ void PostCommandWidget::onCommentEdited(int numberString, QString comment)
     model->setComment(numberString, comment);
 }
 
-PostCommandWidget::onSelectedCommand(int numberCommand)
+void PostCommandWidget::onSelectedCommand(int numberCommand)
 {
     deselectCommand();
     stringsList->at(numberCommand).data()->setSelect();
@@ -109,7 +109,7 @@ void PostCommandWidget::onDeleteStringClicked()
 
 void PostCommandWidget::onChangedStatusPlay(StatusPlay statusPlay)
 {
-    if (statusPlay == StatusPlay::STOPPED) {
+    if (statusPlay == STOPPED) {
         deselectCommand();
         currentSelectedCommand = -1;
     }

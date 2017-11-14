@@ -23,16 +23,16 @@ bool ModelBase::checkValidationCommand(int numberCommand)
 void ModelBase::play()
 {
     switch (statusPlay) {
-    case StatusPlay::STOPPED: {
+    case STOPPED: {
         nextCommand = 0;
-        changeStatusPlay(StatusPlay::PLAYING);
+        changeStatusPlay(PLAYING);
         break;
     }
-    case StatusPlay::PLAYING: {
+    case PLAYING: {
         return;
     }
-    case StatusPlay::ON_PAUSE: {
-        changeStatusPlay(StatusPlay::PLAYING);
+    case ON_PAUSE: {
+        changeStatusPlay(PLAYING);
         break;
     }
     default:
@@ -44,24 +44,24 @@ void ModelBase::play()
 
 void ModelBase::executeWithTimer()
 {
-    if (statusPlay != StatusPlay::PLAYING) return;
+    if (statusPlay != PLAYING) return;
 
     emit selectCommand(nextCommand);
     if (executeCommand(nextCommand)) {
         timer->start(speedTimer);
-    } else changeStatusPlay(StatusPlay::STOPPED);
+    } else changeStatusPlay(STOPPED);
 }
 
 
 void ModelBase::playStep()
 {
     switch (statusPlay) {
-    case StatusPlay::STOPPED: {
+    case STOPPED: {
         nextCommand = 0;
-        changeStatusPlay(StatusPlay::ON_PAUSE);
+        changeStatusPlay(ON_PAUSE);
         break;
     }
-    case StatusPlay::PLAYING: {
+    case PLAYING: {
         return;
     }
     default:
@@ -69,7 +69,7 @@ void ModelBase::playStep()
     }
 
     emit selectCommand(nextCommand);
-    if (!executeCommand(nextCommand)) changeStatusPlay(StatusPlay::STOPPED);
+    if (!executeCommand(nextCommand)) changeStatusPlay(STOPPED);
 }
 
 void ModelBase::changeStatusPlay(StatusPlay statusPlay)

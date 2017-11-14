@@ -145,7 +145,7 @@ void PostCommandString::setDeselected()
 void PostCommandString::onCommandTypeChangedSlot(int type)
 {
     PostCommandType commandType = static_cast<PostCommandType>(type);
-    if (commandType == PostCommandType::CHECK_MARK) {
+    if (commandType == CHECK_MARK) {
         secondTransitionLineEdit->show();
     } else {
         secondTransitionLineEdit->hide();

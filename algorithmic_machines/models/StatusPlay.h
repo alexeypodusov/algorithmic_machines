@@ -1,7 +1,7 @@
 #ifndef STATUSPLAY_H
 #define STATUSPLAY_H
 
-enum class StatusPlay {
+enum StatusPlay {
     STOPPED,
     PLAYING,
     ON_PAUSE

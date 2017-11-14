@@ -23,7 +23,7 @@ private:
 
 protected:
     int nextCommand;
-    StatusPlay statusPlay = StatusPlay::STOPPED;
+    StatusPlay statusPlay = STOPPED;
     void changeStatusPlay(StatusPlay statusPlay);
 
 signals:
