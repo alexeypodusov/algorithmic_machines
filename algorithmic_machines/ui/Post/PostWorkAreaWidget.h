@@ -26,7 +26,7 @@ class PostWorkAreaWidget : public QWidget, BaseWorkAreaWidget
     Q_OBJECT
 
 public:
-    explicit PostWorkAreaWidget(QWidget *parent, ModelBase *model); 
+    explicit PostWorkAreaWidget(ModelBase *model);
     ~PostWorkAreaWidget();
 
 private slots:
@@ -39,7 +39,7 @@ private:
     ModelPost *model;
 
     QList<QSharedPointer<PostCell> > *cellWidgetList;
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent* event);
     Ui::PostWorkAreaWidget *ui;
     QHBoxLayout *layoutScrollArea;
     int countCells;

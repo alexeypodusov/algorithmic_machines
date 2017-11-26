@@ -21,7 +21,7 @@ public:
     const static int WIDTH_TRANSITION_STRING = 70;
     const static int WIDTH_COMMENT_STRING = 50;
 
-   explicit PostCommandString(QWidget *parent);
+   explicit PostCommandString(QWidget *parent = 0);
    ~PostCommandString();
 
    QHBoxLayout* getStringLayout();

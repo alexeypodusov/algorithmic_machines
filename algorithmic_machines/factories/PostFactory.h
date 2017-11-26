@@ -14,8 +14,8 @@ public:
 
     // AbstractFactory interface
     ModelBase *createModel(QWidget *parent);
-    BaseCommandWidget *createCommandWidget(QWidget *parent, ModelBase *model);
-    BaseWorkAreaWidget *createWorkAreaWidget(QWidget *parent, ModelBase *model);
+    BaseCommandWidget *createCommandWidget(ModelBase *model);
+    BaseWorkAreaWidget *createWorkAreaWidget(ModelBase *model);
 
 };
 

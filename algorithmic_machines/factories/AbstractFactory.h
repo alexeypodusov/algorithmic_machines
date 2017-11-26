@@ -15,8 +15,8 @@ public:
     explicit AbstractFactory(QObject *parent = 0);
 
     virtual ModelBase *createModel(QWidget *parent);
-    virtual BaseCommandWidget *createCommandWidget(QWidget *parent, ModelBase *model);
-    virtual BaseWorkAreaWidget *createWorkAreaWidget(QWidget *parent, ModelBase *model);
+    virtual BaseCommandWidget *createCommandWidget(ModelBase *model);
+    virtual BaseWorkAreaWidget *createWorkAreaWidget(ModelBase *model);
 private:
 
 signals:

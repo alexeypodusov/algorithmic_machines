@@ -25,14 +25,14 @@ void MainWindow::initHardCode() {
     connect(model, SIGNAL(changedStatusPlaySignal(StatusPlay)), this, SLOT(onChangedStatusPlay(StatusPlay)));
 
     commandWidgetList = new QList<QSharedPointer<BaseCommandWidget> >();
-    commandWidgetList->append(QSharedPointer<BaseCommandWidget>(factory->createCommandWidget(this, model)));
+    commandWidgetList->append(QSharedPointer<BaseCommandWidget>(factory->createCommandWidget(model)));
 
     workAreaWidgetList = new QList<QSharedPointer<BaseWorkAreaWidget> >();
-    workAreaWidgetList->append(QSharedPointer<BaseWorkAreaWidget>(factory->createWorkAreaWidget(this, model)));
+    workAreaWidgetList->append(QSharedPointer<BaseWorkAreaWidget>(factory->createWorkAreaWidget(model)));
 
     ui->tabWorkAreaWidget->addTab(workAreaWidgetList->at(0).data()->getWidget(), "1234");
-    workAreaWidgetList->at(0).data()->updateSizeWidget();
     ui->tabCommandWidget->addTab(commandWidgetList->at(0).data()->getWidget(), "1234");
+    workAreaWidgetList->at(0).data()->updateSizeWidget();
 
 }
 

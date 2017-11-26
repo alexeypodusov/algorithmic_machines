@@ -16,12 +16,12 @@ ModelBase *PostFactory::createModel(QWidget *parent)
 }
 
 
-BaseCommandWidget *PostFactory::createCommandWidget(QWidget *parent, ModelBase *model)
+BaseCommandWidget *PostFactory::createCommandWidget(ModelBase *model)
 {
-     return (BaseCommandWidget*)new PostCommandWidget(parent, model);
+     return (BaseCommandWidget*)new PostCommandWidget(model);
 }
 
-BaseWorkAreaWidget *PostFactory::createWorkAreaWidget(QWidget *parent, ModelBase *model)
+BaseWorkAreaWidget *PostFactory::createWorkAreaWidget(ModelBase *model)
 {
-    return (BaseWorkAreaWidget*)new PostWorkAreaWidget(parent, model);
+    return (BaseWorkAreaWidget*)new PostWorkAreaWidget(model);
 }

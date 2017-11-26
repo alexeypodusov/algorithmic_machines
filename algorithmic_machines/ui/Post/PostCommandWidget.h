@@ -19,7 +19,7 @@ class PostCommandWidget : public QWidget, BaseCommandWidget
     Q_OBJECT
 
 public:
-    explicit PostCommandWidget(QWidget *parent, ModelBase *model);
+    explicit PostCommandWidget(ModelBase *model);
     ~PostCommandWidget();
 
 private:

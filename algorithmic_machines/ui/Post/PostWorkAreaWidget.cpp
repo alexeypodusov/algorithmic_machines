@@ -2,8 +2,8 @@
 #include "ui_PostWorkAreaWidget.h"
 
 
-PostWorkAreaWidget::PostWorkAreaWidget(QWidget *parent, ModelBase *model) :
-    QWidget(parent),
+PostWorkAreaWidget::PostWorkAreaWidget(ModelBase *model) :
+    QWidget(0),
     ui(new Ui::PostWorkAreaWidget)
 {
     ui->setupUi(this);
@@ -21,29 +21,26 @@ PostWorkAreaWidget::~PostWorkAreaWidget()
     delete ui;
 }
 
-void PostWorkAreaWidget::resizeEvent(QResizeEvent* event)
-{
-    updateSizeWidget();
-}
-
 void PostWorkAreaWidget::init() {
+
         cellWidgetList = new QList<QSharedPointer<PostCell> >();
 
         countCells = QApplication::desktop()->width()/(PostCell::WIDTH_CELL+6)+100;
         numberWidgetCarriage = countCells/2;
 
         layoutScrollArea = new QHBoxLayout(this);
+
         for(int i = 0; i<countCells; i++) {
-            PostCell *cell = new PostCell(this);
+            PostCell *cell = new PostCell();
             cellWidgetList->append(QSharedPointer<PostCell>(cell));
             layoutScrollArea->addWidget(cell->getCellWidget());
             connect(cell, SIGNAL(buttonClickedSignal(QString)), this, SLOT(onCellClicked(QString)));
         }
 
+        ui->scrollArea->widget()->setLayout(layoutScrollArea);
         updateWorkArea();
         cellWidgetList->at(numberWidgetCarriage).data()->setCurrent();
 
-       ui->scrollArea->widget()->setLayout(layoutScrollArea);
 }
 
 
@@ -56,12 +53,19 @@ QWidget *PostWorkAreaWidget::getWidget() {
 void PostWorkAreaWidget::updateSizeWidget() {
     //подобрано эмперическим путем
     int margin = 6;
-    int factor = PostCell::WIDTH_CELL+margin;
+    int factor = PostCell::WIDTH_CELL + margin;
 
     int widthScrollArea = ui->scrollArea->size().width();
 
     int leftCellNumber = numberWidgetCarriage-(widthScrollArea/factor)/2;
+
+    ui->scrollArea->horizontalScrollBar()->setMaximum(factor * countCells);
     ui->scrollArea->horizontalScrollBar()->setValue(leftCellNumber*factor+3);
+}
+
+void PostWorkAreaWidget::resizeEvent(QResizeEvent *event)
+{
+    updateSizeWidget();
 }
 
 void PostWorkAreaWidget::updateWorkArea() {

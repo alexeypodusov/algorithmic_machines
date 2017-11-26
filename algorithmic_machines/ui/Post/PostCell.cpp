@@ -25,7 +25,6 @@ PostCell::~PostCell()
     delete pushButton;
     delete label;
     delete cellWidget;
-
 }
 
 QVBoxLayout *PostCell::getMainLayout() {return mainLayout;}

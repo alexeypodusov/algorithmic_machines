@@ -1,8 +1,8 @@
 #include "PostCommandWidget.h"
 #include "ui_PostCommandWidget.h"
 
-PostCommandWidget::PostCommandWidget(QWidget *parent, ModelBase *model) :
-    QWidget(parent),
+PostCommandWidget::PostCommandWidget(ModelBase *model) :
+    QWidget(0),
     ui(new Ui::PostCommandWidget)
 {
     ui->setupUi(this);
@@ -39,7 +39,7 @@ void PostCommandWidget::init()
 void PostCommandWidget::addCommandString(int numString)
 {
     PostModelCommand commandModel = model->getPostCommand(numString);
-    PostCommandString *command = new PostCommandString(this);
+    PostCommandString *command = new PostCommandString();
     stringsList->append(QSharedPointer<PostCommandString>(command));
     command->setNumberString(commandModel.number);
     command->setCommandType(commandModel.commandType);
