@@ -25,10 +25,10 @@ void PostWorkAreaWidget::init() {
 
         cellWidgetList = new QList<QSharedPointer<PostCell> >();
 
-        countCells = QApplication::desktop()->width()/(PostCell::WIDTH_CELL+6)+100;
-        numberWidgetCarriage = countCells/2;
-
         layoutScrollArea = new QHBoxLayout(this);
+
+        countCells = QApplication::desktop()->width()/(PostCell::WIDTH_CELL+SPACING_CELL_LAYOUT)+100;
+        numberWidgetCarriage = countCells/2;
 
         for(int i = 0; i<countCells; i++) {
             PostCell *cell = new PostCell();
@@ -38,6 +38,8 @@ void PostWorkAreaWidget::init() {
         }
 
         ui->scrollArea->widget()->setLayout(layoutScrollArea);
+        layoutScrollArea->setSpacing(SPACING_CELL_LAYOUT);
+
         updateWorkArea();
         cellWidgetList->at(numberWidgetCarriage).data()->setCurrent();
 
@@ -52,15 +54,14 @@ QWidget *PostWorkAreaWidget::getWidget() {
 
 void PostWorkAreaWidget::updateSizeWidget() {
     //подобрано эмперическим путем
-    int margin = 6;
-    int factor = PostCell::WIDTH_CELL + margin;
+    int cellWithSpacing = PostCell::WIDTH_CELL + SPACING_CELL_LAYOUT;
 
     int widthScrollArea = ui->scrollArea->size().width();
 
-    int leftCellNumber = numberWidgetCarriage-(widthScrollArea/factor)/2;
+    int leftCellNumber = numberWidgetCarriage-(widthScrollArea/cellWithSpacing)/2;
 
-    ui->scrollArea->horizontalScrollBar()->setMaximum(factor * countCells);
-    ui->scrollArea->horizontalScrollBar()->setValue(leftCellNumber*factor+3);
+    ui->scrollArea->horizontalScrollBar()->setMaximum(cellWithSpacing * countCells);
+    ui->scrollArea->horizontalScrollBar()->setValue(leftCellNumber*cellWithSpacing+3);
 }
 
 void PostWorkAreaWidget::resizeEvent(QResizeEvent *event)

@@ -26,6 +26,8 @@ class PostWorkAreaWidget : public QWidget, BaseWorkAreaWidget
     Q_OBJECT
 
 public:
+
+    const static int SPACING_CELL_LAYOUT = 6;
     explicit PostWorkAreaWidget(ModelBase *model);
     ~PostWorkAreaWidget();
 
