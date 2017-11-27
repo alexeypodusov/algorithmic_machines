@@ -17,6 +17,7 @@ public:
 
     void play();
     void playStep();
+    void changeStatusPlay(StatusPlay statusPlay);
     int speedTimer = 500;
 private:
     QTimer *timer;
@@ -24,7 +25,6 @@ private:
 protected:
     int nextCommand;
     StatusPlay statusPlay = STOPPED;
-    void changeStatusPlay(StatusPlay statusPlay);
 
 signals:
     void sendMessage(MessageType messageType, QString text, QString title);

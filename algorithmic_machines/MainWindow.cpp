@@ -51,6 +51,12 @@ void MainWindow::on_actionPlay_triggered()
     model->play();
 }
 
+
+void MainWindow::on_actionNextStep_triggered()
+{
+   model->playStep();
+}
+
 void MainWindow::receiveMessage(MessageType messageType, QString text, QString title)
 {
     switch (messageType) {
@@ -70,4 +76,34 @@ void MainWindow::receiveMessage(MessageType messageType, QString text, QString t
 void MainWindow::onChangedStatusPlay(StatusPlay statusPlay)
 {
      commandWidgetList->at(ui->tabCommandWidget->currentIndex()).data()->onChangedStatusPlay(statusPlay);
+     switch (statusPlay) {
+     case PLAYING:
+         ui->actionPlay->setEnabled(false);
+         ui->actionPause->setEnabled(true);
+         ui->actionStop->setEnabled(true);
+         break;
+     case ON_PAUSE:
+         ui->actionPlay->setEnabled(true);
+         ui->actionPause->setEnabled(false);
+         ui->actionStop->setEnabled(true);
+         break;
+     case STOPPED:
+         ui->actionPlay->setEnabled(true);
+         ui->actionPause->setEnabled(false);
+         ui->actionStop->setEnabled(false);
+         break;
+     default:
+         break;
+     }
+}
+
+
+void MainWindow::on_actionPause_triggered()
+{
+    model->changeStatusPlay(ON_PAUSE);
+}
+
+void MainWindow::on_actionStop_triggered()
+{
+    model->changeStatusPlay(STOPPED);
 }

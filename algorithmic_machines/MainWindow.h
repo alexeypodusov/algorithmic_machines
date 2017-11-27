@@ -32,6 +32,12 @@ private slots:
     void receiveMessage(MessageType messageType, QString text, QString title);
     void onChangedStatusPlay(StatusPlay statusPlay);
 
+    void on_actionNextStep_triggered();
+
+    void on_actionPause_triggered();
+
+    void on_actionStop_triggered();
+
 private:
     Ui::MainWindow *ui;
 

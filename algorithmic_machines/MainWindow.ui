@@ -166,10 +166,10 @@
      <string>Выполнение</string>
     </property>
     <addaction name="actionPlay"/>
-    <addaction name="action_2"/>
+    <addaction name="actionNextStep"/>
     <addaction name="action_3"/>
-    <addaction name="action_4"/>
-    <addaction name="action_5"/>
+    <addaction name="actionPause"/>
+    <addaction name="actionStop"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -189,7 +189,7 @@
     <string>Запуск</string>
    </property>
   </action>
-  <action name="action_2">
+  <action name="actionNextStep">
    <property name="text">
     <string>Следующий шаг</string>
    </property>
@@ -199,12 +199,12 @@
     <string>Предыдущий шаг</string>
    </property>
   </action>
-  <action name="action_4">
+  <action name="actionPause">
    <property name="text">
     <string>Пауза</string>
    </property>
   </action>
-  <action name="action_5">
+  <action name="actionStop">
    <property name="text">
     <string>Стоп</string>
    </property>
