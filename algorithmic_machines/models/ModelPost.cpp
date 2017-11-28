@@ -127,7 +127,7 @@ bool ModelPost::checkTransitionNumber(int numberTransition)
 
 bool ModelPost::executeCommand(int numberCommand)
 {
-    nextCommand = commandsList->at(numberCommand).transition;
+    executeNumberCommandList->append(commandsList->at(numberCommand).transition);
 
     if (!checkValidationCommand(numberCommand)) {
         return false;
@@ -171,7 +171,8 @@ bool ModelPost::executeCommand(int numberCommand)
         }
         case CHECK_MARK: {
             if (!cellsList->at(currentCarriage)) {
-                nextCommand = commandsList->at(numberCommand).secondTransition;
+                executeNumberCommandList->removeLast();
+                executeNumberCommandList->append(commandsList->at(numberCommand).secondTransition);
             }
             break;
         }

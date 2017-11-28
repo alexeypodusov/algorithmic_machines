@@ -19,6 +19,7 @@ MainWindow::~MainWindow() {
 
 //пока хардкод
 void MainWindow::initHardCode() {
+
     factory = new PostFactory(this);
     model = factory->createModel(this);
     connect(model, SIGNAL(sendMessage(MessageType, QString, QString)), this, SLOT(receiveMessage(MessageType, QString, QString)));
@@ -34,6 +35,7 @@ void MainWindow::initHardCode() {
     ui->tabCommandWidget->addTab(commandWidgetList->at(0).data()->getWidget(), "1234");
     workAreaWidgetList->at(0).data()->updateSizeWidget();
 
+    onChangedStatusPlay(STOPPED);
 }
 
 void MainWindow::on_pushButtonAddString_clicked()

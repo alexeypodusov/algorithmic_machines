@@ -2,6 +2,7 @@
 
 ModelBase::ModelBase(QObject *parent) : QObject(parent)
 {
+    executeNumberCommandList = new QLinkedList<int>();
     timer = new QTimer();
     QObject::connect(timer,SIGNAL(timeout()), this, SLOT(executeWithTimer()));
     timer->setSingleShot(1);
@@ -24,6 +25,8 @@ void ModelBase::play()
 {
     switch (statusPlay) {
     case STOPPED: {
+        executeNumberCommandList->clear();
+        executeNumberCommandList->append(0);
         nextCommand = 0;
         changeStatusPlay(PLAYING);
         break;
@@ -46,8 +49,8 @@ void ModelBase::executeWithTimer()
 {
     if (statusPlay != PLAYING) return;
 
-    emit selectCommand(nextCommand);
-    if (executeCommand(nextCommand)) {
+    emit selectCommand(executeNumberCommandList->last());
+    if (executeCommand(executeNumberCommandList->last())) {
         timer->start(speedTimer);
     } else changeStatusPlay(STOPPED);
 }
@@ -68,8 +71,13 @@ void ModelBase::playStep()
         break;
     }
 
-    emit selectCommand(nextCommand);
-    if (!executeCommand(nextCommand)) changeStatusPlay(STOPPED);
+    emit selectCommand(executeNumberCommandList->last());
+    if (!executeCommand(executeNumberCommandList->last())) changeStatusPlay(STOPPED);
+}
+
+void ModelBase::reversePlayStep()
+{
+
 }
 
 void ModelBase::changeStatusPlay(StatusPlay statusPlay)

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
+#include <QLinkedList>
 #include <models/StatusPlay.h>
 #include <ui/MessageType.h>
 
@@ -17,13 +18,14 @@ public:
 
     void play();
     void playStep();
+    void reversePlayStep();
     void changeStatusPlay(StatusPlay statusPlay);
     int speedTimer = 500;
 private:
     QTimer *timer;
 
 protected:
-    int nextCommand;
+    QLinkedList<int> *executeNumberCommandList;
     StatusPlay statusPlay = STOPPED;
 
 signals:
