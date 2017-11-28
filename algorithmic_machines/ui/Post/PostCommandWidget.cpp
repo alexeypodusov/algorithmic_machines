@@ -7,7 +7,7 @@ PostCommandWidget::PostCommandWidget(ModelBase *model) :
 {
     ui->setupUi(this);
     this->model = (ModelPost*)model;
-    connect(this->model, SIGNAL(selectCommand(int)), this, SLOT(onSelectedCommand(int)));
+    connect(this->model, SIGNAL(selectCommand(int, int)), this, SLOT(onSelectedCommand(int, int)));
     init();
 }
 
@@ -50,7 +50,8 @@ void PostCommandWidget::addCommandString(int numString)
     connect(command, SIGNAL(onCommandTypeChangedSignal(int, PostCommandType)), this, SLOT(onCommandTypeChanged(int, PostCommandType)));
     connect(command, SIGNAL(onTransitionEditedSignal(int,int)), this, SLOT(onTransitionEdited(int, int)));
     connect(command, SIGNAL(onSecondTransitionEditedSignal(int,int)), this, SLOT(onSecondTransitionEdited(int, int)));
-    connect(command, SIGNAL(onCommentEditedSignal(int, QString)), this, SLOT(onCommentEdited(int, QString)));
+    connect(command, SIGNAL(onCommentEditedSignal(int, QString)), this, SLOT(onNumStringClicked(int)));
+    connect(command, SIGNAL(onLinkStringSignal(int)), this, SLOT(onNumStringClicked(int)));
     commandStringsLayout->addWidget(command);
 }
 
@@ -86,11 +87,17 @@ void PostCommandWidget::onCommentEdited(int numberString, QString comment)
     model->setComment(numberString, comment);
 }
 
-void PostCommandWidget::onSelectedCommand(int numberCommand)
+void PostCommandWidget::onSelectedCommand(int numberCommand, int prevCommand)
 {
     deselectCommand();
-    stringsList->at(numberCommand).data()->setSelect();
+    stringsList->at(numberCommand).data()->setSelect(prevCommand);
+    ui->scrollArea->ensureWidgetVisible(stringsList->at(numberCommand).data());
     currentSelectedCommand = numberCommand;
+}
+
+void PostCommandWidget::onNumStringClicked(int num)
+{
+    ui->scrollArea->ensureWidgetVisible(stringsList->at(num).data());
 }
 
 

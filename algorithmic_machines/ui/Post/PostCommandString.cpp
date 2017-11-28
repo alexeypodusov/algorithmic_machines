@@ -2,7 +2,8 @@
 
 PostCommandString::PostCommandString(QWidget *parent) : BaseCommandString(parent)
 {
-    stringLayout = new QHBoxLayout;
+    mainLayout = new QVBoxLayout;
+    stringLayout = new QHBoxLayout();
 
     numberStringLabel = new QLabel();
     numberStringLabel->setMinimumWidth(WIDTH_NUMBER_STRING);
@@ -48,7 +49,28 @@ PostCommandString::PostCommandString(QWidget *parent) : BaseCommandString(parent
     connect(commentLineEdit, SIGNAL(editingFinished()), this, SLOT(onCommentEditedSlot()));
     stringLayout->setContentsMargins(0,0,0,0);
 
-    this->setLayout(stringLayout);
+    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->addLayout(stringLayout);
+
+    previousStringWidget = new QWidget;
+    linkLayout = new QHBoxLayout;
+    previousStringText = new QLabel(previousStringWidget);
+    previousStringText->setText(QString::fromLocal8Bit("Предыдущая строка: "));
+    linkLayout->addWidget(previousStringText);
+
+    previousNumberString = new QLabel(previousStringWidget);
+    connect(previousNumberString, SIGNAL(linkActivated(QString)), this, SLOT(onLinkStringSlot(QString)));
+    linkLayout->addWidget(previousNumberString);
+
+    linkLayout->setContentsMargins(LINK_LAYOUT_MARGIN,0,0,0);
+    linkLayout->setAlignment(Qt::AlignLeft);
+    previousStringWidget->setLayout(linkLayout);
+    previousStringWidget->hide();
+
+    mainLayout->addWidget(previousStringWidget);
+
+    this->setLayout(mainLayout);
+    mainLayout->setAlignment(Qt::AlignCenter);
 
     this->setFixedHeight(HEIGHT_STRING);
     this->setStyleSheet(NOSELECT_STRING_CSS);
@@ -57,6 +79,8 @@ PostCommandString::PostCommandString(QWidget *parent) : BaseCommandString(parent
 
 PostCommandString::~PostCommandString()
 {
+    delete linkLayout;
+    delete previousStringWidget;
     delete stringLayout;
     delete numberStringLabel;
     delete transitionLineEdit;
@@ -129,16 +153,23 @@ void PostCommandString::setComment(QString comment)
     commentLineEdit->setText(comment);
 }
 
-void PostCommandString::setSelect()
+void PostCommandString::setSelect(int prevCommand)
 {
     this->setStyleSheet(SELECT_STRING_CSS);
-    setFixedHeight(2*HEIGHT_STRING);
+    setFixedHeight(3*HEIGHT_STRING);
+    if (prevCommand != -1) {
+        QString link = QString("<a href='%1'>%1</a>").arg(QString::number(prevCommand));
+        previousNumberString->setText(link);
+        previousStringWidget->show();
+    }
+
 }
 
 void PostCommandString::setDeselected()
 {
     this->setStyleSheet(NOSELECT_STRING_CSS);
     setFixedHeight(HEIGHT_STRING);
+    previousStringWidget->hide();
 }
 
 
@@ -168,5 +199,10 @@ void PostCommandString::onSecondTransitionEditedSlot()
 void PostCommandString::onCommentEditedSlot()
 {
     emit onCommentEditedSignal(numberStringLabel->text().toInt(), getComment());
+}
+
+void PostCommandString::onLinkStringSlot(QString link)
+{
+    emit onLinkStringSignal(link.toInt());
 }
 

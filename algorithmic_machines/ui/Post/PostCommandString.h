@@ -20,6 +20,7 @@ public:
     const static int WIDTH_COMMAND_STRING = 80;
     const static int WIDTH_TRANSITION_STRING = 70;
     const static int WIDTH_COMMENT_STRING = 50;
+    const static int LINK_LAYOUT_MARGIN = 20;
 
    explicit PostCommandString(QWidget *parent = 0);
    ~PostCommandString();
@@ -41,9 +42,11 @@ public:
    QString getComment();
    void setComment(QString comment);
 
-   void setSelect();
+   void setSelect(int prevCommand);
    void setDeselected();
 private:
+   QVBoxLayout *mainLayout;
+   QHBoxLayout *linkLayout;
    QHBoxLayout *stringLayout;
    QLabel *numberStringLabel;
    QComboBox *commandComboBox;
@@ -51,16 +54,23 @@ private:
    QLineEdit *secondTransitionLineEdit;
    QLineEdit *commentLineEdit;
 
+   QLabel *previousStringText;
+   QLabel *previousNumberString;
+   QWidget *previousStringWidget;
+
 signals:
     void onCommandTypeChangedSignal(int numberString, PostCommandType commandType);
     void onTransitionEditedSignal(int numberString, int transition);
     void onSecondTransitionEditedSignal(int numberString, int transition);
     void onCommentEditedSignal(int numberString, QString comment);
+    void onLinkStringSignal(int numberString);
+
 private slots:
     void onCommandTypeChangedSlot(int type);
     void onTransitionEditedSlot();
     void onSecondTransitionEditedSlot();
     void onCommentEditedSlot();
+    void onLinkStringSlot(QString link);
 };
 
 #endif // POSTCOMMANDSTRING_H

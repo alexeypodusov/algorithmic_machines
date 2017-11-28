@@ -20,6 +20,7 @@ public:
     void play();
     void playStep();
     void playReverseStep();
+    void emitSelectCommand();
     void changeStatusPlay(StatusPlay statusPlay);
     int speedTimer = 500;
 private:
@@ -31,7 +32,7 @@ protected:
 
 signals:
     void sendMessage(MessageType messageType, QString text, QString title);
-    void selectCommand(int numberCommand);
+    void selectCommand(int numberCommand, int prevCommand);
     void changedStatusPlaySignal(StatusPlay statusPlay);
 public slots:
     void executeWithTimer();

@@ -35,7 +35,7 @@ void ModelBase::play()
         executeNumberCommandList->clear();
         executeNumberCommandList->append(0);
         changeStatusPlay(PLAYING);
-        emit selectCommand(executeNumberCommandList->last());
+        emitSelectCommand();
         timer->start(speedTimer);
         break;
     }
@@ -56,10 +56,12 @@ void ModelBase::executeWithTimer()
 {
     if (statusPlay != PLAYING) return;
 
-    emit selectCommand(executeNumberCommandList->last());
+    emitSelectCommand();
     if (executeCommand(executeNumberCommandList->last())) {
         timer->start(speedTimer);
-        emit selectCommand(executeNumberCommandList->last());
+
+
+        emitSelectCommand();
     } else changeStatusPlay(STOPPED);
 }
 
@@ -70,7 +72,7 @@ void ModelBase::playStep()
     case STOPPED: {
         executeNumberCommandList->clear();
         executeNumberCommandList->append(0);
-        emit selectCommand(executeNumberCommandList->last());
+        emitSelectCommand();
         changeStatusPlay(ON_PAUSE);
         return;
     }
@@ -86,7 +88,7 @@ void ModelBase::playStep()
         return;
     }
 
-    emit selectCommand(executeNumberCommandList->last());
+    emitSelectCommand();
 
 }
 
@@ -95,10 +97,22 @@ void ModelBase::playReverseStep()
     if (executeNumberCommandList->size() > 1 ) {
         executeNumberCommandList->removeLast();
         reverseExecuteCommand(executeNumberCommandList->last());
-        emit selectCommand(executeNumberCommandList->last());
+        emitSelectCommand();
     } else {
         changeStatusPlay(STOPPED);
     }
+}
+
+void ModelBase::emitSelectCommand()
+{
+    int prevCommand = -1;
+    if (executeNumberCommandList->size() > 1) {
+        QLinkedList<int>::iterator i;
+        i = executeNumberCommandList->end();
+        i-=2;
+        prevCommand = *i;
+    }
+    emit selectCommand(executeNumberCommandList->last(), prevCommand);
 }
 
 void ModelBase::changeStatusPlay(StatusPlay statusPlay)

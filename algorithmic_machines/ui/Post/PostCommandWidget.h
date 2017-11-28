@@ -47,8 +47,8 @@ private slots:
     void onTransitionEdited(int numberString, int transition);
     void onSecondTransitionEdited(int numberString, int transition);
     void onCommentEdited(int numberString, QString comment);
-
-    void onSelectedCommand(int numberCommand);
+    void onSelectedCommand(int numberCommand, int prevCommand);
+    void onNumStringClicked(int num);
 };
 
 #endif // POSTCOMMANDWIDGET_H
