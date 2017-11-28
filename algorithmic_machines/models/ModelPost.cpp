@@ -40,7 +40,6 @@ bool ModelPost::getMarkByNumberCell(int numCell) {
     return cellsList->at(numList);
 }
 
-
 void ModelPost::changeSell(int numCell) {
     int numList = numCell + 1000;
     cellsList->operator [](numList) = !cellsList->at(numList);
@@ -136,7 +135,7 @@ bool ModelPost::executeCommand(int numberCommand)
     switch(commandsList->at(numberCommand).commandType)
     {
         case ADD_MARK: {
-            if (!cellsList->at(currentCarriage)) {
+            if (!getMarkByNumberCell(currentCarriage)) {
                 changeSell(currentCarriage);
             } else {
                 emit sendMessage(MESSAGE_ERROR, ERROR_MARK_TRUE, ERROR_TITLE);
@@ -145,7 +144,7 @@ bool ModelPost::executeCommand(int numberCommand)
             break;
         }
         case DELETE_MARK: {
-            if (cellsList->at(currentCarriage)) {
+            if (getMarkByNumberCell(currentCarriage)) {
                 changeSell(currentCarriage);
             } else {
                 emit sendMessage(MESSAGE_ERROR, ERROR_MARK_FALSE, ERROR_TITLE);
@@ -170,7 +169,7 @@ bool ModelPost::executeCommand(int numberCommand)
             break;
         }
         case CHECK_MARK: {
-            if (!cellsList->at(currentCarriage)) {
+            if (!getMarkByNumberCell(currentCarriage)) {
                 executeNumberCommandList->removeLast();
                 executeNumberCommandList->append(commandsList->at(numberCommand).secondTransition);
             }
@@ -188,3 +187,51 @@ bool ModelPost::executeCommand(int numberCommand)
     }
     return true;
 }
+
+bool ModelPost::reverseExecuteCommand(int numberCommand)
+{
+    if (!checkValidationCommand(numberCommand)) {
+        return false;
+    }
+
+    switch(commandsList->at(numberCommand).commandType)
+    {
+    case ADD_MARK: {
+        if (getMarkByNumberCell(currentCarriage)) {
+            changeSell(currentCarriage);
+        } else {
+            emit sendMessage(MESSAGE_ERROR, ERROR_MARK_FALSE, ERROR_TITLE);
+            return false;
+        }
+        break;
+    }
+    case DELETE_MARK: {
+        if (!getMarkByNumberCell(currentCarriage)) {
+            changeSell(currentCarriage);
+        } else {
+            emit sendMessage(MESSAGE_ERROR, ERROR_MARK_TRUE, ERROR_TITLE);
+            return false;
+        }
+        break;
+    }
+    case LEFT_STEP: {
+        int newCurrentCarriage = currentCarriage + 1;
+        if(!setCurrentCarriage(newCurrentCarriage)) {
+            emit sendMessage(MESSAGE_ERROR, ERROR_BORDER, ERROR_TITLE);
+            return false;
+        }
+        break;
+    }
+    case RIGHT_STEP: {
+        int newCurrentCarriage = currentCarriage - 1;
+        if(!setCurrentCarriage(newCurrentCarriage)) {
+            emit sendMessage(MESSAGE_ERROR, ERROR_BORDER, ERROR_TITLE);
+            return false;
+        }
+        break;
+    }
+    }
+    return true;
+}
+
+

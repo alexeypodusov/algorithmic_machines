@@ -59,6 +59,13 @@ void MainWindow::on_actionNextStep_triggered()
    model->playStep();
 }
 
+
+void MainWindow::on_actionReverseStep_triggered()
+{
+    model->playReverseStep();
+}
+
+
 void MainWindow::receiveMessage(MessageType messageType, QString text, QString title)
 {
     switch (messageType) {
@@ -83,16 +90,19 @@ void MainWindow::onChangedStatusPlay(StatusPlay statusPlay)
          ui->actionPlay->setEnabled(false);
          ui->actionPause->setEnabled(true);
          ui->actionStop->setEnabled(true);
+         ui->actionReverseStep->setEnabled(true);
          break;
      case ON_PAUSE:
          ui->actionPlay->setEnabled(true);
          ui->actionPause->setEnabled(false);
          ui->actionStop->setEnabled(true);
+         ui->actionReverseStep->setEnabled(true);
          break;
      case STOPPED:
          ui->actionPlay->setEnabled(true);
          ui->actionPause->setEnabled(false);
          ui->actionStop->setEnabled(false);
+         ui->actionReverseStep->setEnabled(false);
          break;
      default:
          break;

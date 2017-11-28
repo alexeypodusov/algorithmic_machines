@@ -10,11 +10,18 @@ ModelBase::ModelBase(QObject *parent) : QObject(parent)
 
 ModelBase::~ModelBase()
 {
+    executeNumberCommandList->clear();
+    delete executeNumberCommandList;
     delete timer;
 }
 
 bool ModelBase::executeCommand(int numberCommand)
 {
+}
+
+bool ModelBase::reverseExecuteCommand(int numberCommand)
+{
+
 }
 
 bool ModelBase::checkValidationCommand(int numberCommand)
@@ -27,8 +34,9 @@ void ModelBase::play()
     case STOPPED: {
         executeNumberCommandList->clear();
         executeNumberCommandList->append(0);
-        nextCommand = 0;
         changeStatusPlay(PLAYING);
+        emit selectCommand(executeNumberCommandList->last());
+        timer->start(speedTimer);
         break;
     }
     case PLAYING: {
@@ -42,7 +50,6 @@ void ModelBase::play()
         break;
     }
 
-    executeWithTimer();
 }
 
 void ModelBase::executeWithTimer()
@@ -52,6 +59,7 @@ void ModelBase::executeWithTimer()
     emit selectCommand(executeNumberCommandList->last());
     if (executeCommand(executeNumberCommandList->last())) {
         timer->start(speedTimer);
+        emit selectCommand(executeNumberCommandList->last());
     } else changeStatusPlay(STOPPED);
 }
 
@@ -60,9 +68,11 @@ void ModelBase::playStep()
 {
     switch (statusPlay) {
     case STOPPED: {
-        nextCommand = 0;
+        executeNumberCommandList->clear();
+        executeNumberCommandList->append(0);
+        emit selectCommand(executeNumberCommandList->last());
         changeStatusPlay(ON_PAUSE);
-        break;
+        return;
     }
     case PLAYING: {
         return;
@@ -71,13 +81,24 @@ void ModelBase::playStep()
         break;
     }
 
+    if (!executeCommand(executeNumberCommandList->last())) {
+        changeStatusPlay(STOPPED);
+        return;
+    }
+
     emit selectCommand(executeNumberCommandList->last());
-    if (!executeCommand(executeNumberCommandList->last())) changeStatusPlay(STOPPED);
+
 }
 
-void ModelBase::reversePlayStep()
+void ModelBase::playReverseStep()
 {
-
+    if (executeNumberCommandList->size() > 1 ) {
+        executeNumberCommandList->removeLast();
+        reverseExecuteCommand(executeNumberCommandList->last());
+        emit selectCommand(executeNumberCommandList->last());
+    } else {
+        changeStatusPlay(STOPPED);
+    }
 }
 
 void ModelBase::changeStatusPlay(StatusPlay statusPlay)

@@ -167,7 +167,7 @@
     </property>
     <addaction name="actionPlay"/>
     <addaction name="actionNextStep"/>
-    <addaction name="action_3"/>
+    <addaction name="actionReverseStep"/>
     <addaction name="actionPause"/>
     <addaction name="actionStop"/>
    </widget>
@@ -194,7 +194,7 @@
     <string>Следующий шаг</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="actionReverseStep">
    <property name="text">
     <string>Предыдущий шаг</string>
    </property>

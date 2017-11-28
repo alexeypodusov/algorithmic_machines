@@ -44,6 +44,7 @@ public:
 
     // ModelBase interface
     bool executeCommand(int numberCommand);
+    bool reverseExecuteCommand(int numberCommand);
     bool checkValidationCommand(int numberCommand);
 
 signals:
