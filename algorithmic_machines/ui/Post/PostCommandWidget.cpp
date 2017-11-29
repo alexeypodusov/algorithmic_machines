@@ -97,7 +97,8 @@ void PostCommandWidget::onSelectedCommand(int numberCommand, int prevCommand)
 
 void PostCommandWidget::onNumStringClicked(int num)
 {
-    ui->scrollArea->ensureWidgetVisible(stringsList->at(num).data());
+    if (num < stringsList->size())
+        ui->scrollArea->ensureWidgetVisible(stringsList->at(num).data());
 }
 
 
