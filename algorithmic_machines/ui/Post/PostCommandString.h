@@ -2,6 +2,7 @@
 #define POSTCOMMANDSTRING_H
 
 #include <ui/BaseCommandString.h>
+#include <ui/LinkLineEdit.h>
 #include <models/Post/PostModelCommand.h>
 #include <models/ModelPost.h>
 #include <QHBoxLayout>
@@ -50,8 +51,8 @@ private:
    QHBoxLayout *stringLayout;
    QLabel *numberStringLabel;
    QComboBox *commandComboBox;
-   QLineEdit *transitionLineEdit;
-   QLineEdit *secondTransitionLineEdit;
+   LinkLineEdit *transitionLineEdit;
+   LinkLineEdit *secondTransitionLineEdit;
    QLineEdit *commentLineEdit;
 
    QLabel *previousStringText;

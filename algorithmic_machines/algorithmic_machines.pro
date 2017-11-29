@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     MainWindow.cpp \
     ui/Post/PostCommandString.cpp \
     ui/BaseCommandString.cpp \
-    models/Post/PostModelCommand.cpp
+    models/Post/PostModelCommand.cpp \
+    ui/LinkLineEdit.cpp
 
 HEADERS  += \
     factories/AbstractFactory.h \
@@ -43,7 +44,8 @@ HEADERS  += \
     models/Post/PostModelCommand.h \
     ui/MessageType.h \
     models/Post/PostCommandType.h \
-    models/StatusPlay.h
+    models/StatusPlay.h \
+    ui/LinkLineEdit.h
 
 FORMS    += \
     ui/Post/PostCommandWidget.ui \

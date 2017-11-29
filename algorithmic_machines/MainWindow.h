@@ -50,6 +50,15 @@ private:
 
     QList<QSharedPointer<BaseCommandWidget> >* commandWidgetList;
     QList<QSharedPointer<BaseWorkAreaWidget> >* workAreaWidgetList;
+
+    // QWidget interface
+protected:
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
+
+signals:
+     void keyPressSignal(QKeyEvent *event);
+     void keyReleaseSignal(QKeyEvent *event);
 };
 
 #endif // MAINWINDOW_H

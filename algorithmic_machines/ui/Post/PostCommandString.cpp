@@ -24,21 +24,23 @@ PostCommandString::PostCommandString(QWidget *parent) : BaseCommandString(parent
     connect(commandComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onCommandTypeChangedSlot(int)));
     stringLayout->addWidget(commandComboBox);
 
-    transitionLineEdit = new QLineEdit();
+    transitionLineEdit = new LinkLineEdit();
     transitionLineEdit->setFixedWidth(WIDTH_TRANSITION_STRING);
     transitionLineEdit->setFixedHeight(HEIGHT_STRING);
     transitionLineEdit->setMaximumWidth(3);
     transitionLineEdit->setValidator(new QIntValidator(0, 999));
     connect(transitionLineEdit, SIGNAL(editingFinished()), this, SLOT(onTransitionEditedSlot()));
+    connect(transitionLineEdit, SIGNAL(clickedLinkSignal(QString)), this, SLOT(onLinkStringSlot(QString)));
     stringLayout->addWidget(transitionLineEdit);
 
-    secondTransitionLineEdit = new QLineEdit();
+    secondTransitionLineEdit = new LinkLineEdit();
     secondTransitionLineEdit->setFixedWidth(WIDTH_TRANSITION_STRING);
     secondTransitionLineEdit->setFixedHeight(HEIGHT_STRING);
     transitionLineEdit->setMaximumWidth(3);
     transitionLineEdit->setValidator(new QIntValidator(0, 999));
     secondTransitionLineEdit->hide();
     connect(secondTransitionLineEdit, SIGNAL(editingFinished()), this, SLOT(onSecondTransitionEditedSlot()));
+    connect(secondTransitionLineEdit, SIGNAL(clickedLinkSignal(QString)), this, SLOT(onLinkStringSlot(QString)));
     stringLayout->addWidget(secondTransitionLineEdit);
 
     commentLineEdit = new QLineEdit();

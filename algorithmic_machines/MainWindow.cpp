@@ -119,3 +119,16 @@ void MainWindow::on_actionStop_triggered()
 {
     model->changeStatusPlay(STOPPED);
 }
+
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    QMainWindow::keyPressEvent(event);
+    emit keyPressSignal(event);
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    QMainWindow::keyReleaseEvent(event);
+    emit keyReleaseSignal(event);
+}
