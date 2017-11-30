@@ -2,7 +2,7 @@
 #define POSTCOMMANDSTRING_H
 
 #include <ui/BaseCommandString.h>
-#include <ui/LinkLineEdit.h>
+#include <ui/CustomWidgets/LinkLineEdit.h>
 #include <models/Post/PostModelCommand.h>
 #include <models/ModelPost.h>
 #include <QHBoxLayout>
