@@ -2,7 +2,7 @@
 #include "ui_PostCommandWidget.h"
 
 PostCommandWidget::PostCommandWidget(ModelBase *model) :
-    QWidget(0),
+    BaseCommandWidget(),
     ui(new Ui::PostCommandWidget)
 {
     ui->setupUi(this);
@@ -50,8 +50,8 @@ void PostCommandWidget::addCommandString(int numString)
     connect(command, SIGNAL(onCommandTypeChangedSignal(int, PostCommandType)), this, SLOT(onCommandTypeChanged(int, PostCommandType)));
     connect(command, SIGNAL(onTransitionEditedSignal(int,int)), this, SLOT(onTransitionEdited(int, int)));
     connect(command, SIGNAL(onSecondTransitionEditedSignal(int,int)), this, SLOT(onSecondTransitionEdited(int, int)));
-    connect(command, SIGNAL(onCommentEditedSignal(int, QString)), this, SLOT(onNumStringClicked(int)));
-    connect(command, SIGNAL(onLinkStringSignal(int)), this, SLOT(onNumStringClicked(int)));
+    connect(command, SIGNAL(onCommentEditedSignal(int, QString)), this, SLOT(onCommentEdited(int, QString)));
+    connect(command, SIGNAL(onLinkStringSignal(int, int)), this, SLOT(onNumStringClicked(int, int)));
     commandStringsLayout->addWidget(command);
 }
 
@@ -95,10 +95,31 @@ void PostCommandWidget::onSelectedCommand(int numberCommand, int prevCommand)
     currentSelectedCommand = numberCommand;
 }
 
-void PostCommandWidget::onNumStringClicked(int num)
+void PostCommandWidget::onNumStringClicked(int transitionNum, int senderNum)
 {
-    if (num < stringsList->size())
-        ui->scrollArea->ensureWidgetVisible(stringsList->at(num).data());
+    if (transitionNum < stringsList->size()) {
+        if (clickedCommandList->size() > 1) {
+            for(int i = (clickedCommandList->size() - 1);
+                i > currentCommandIndex; i--) {
+                clickedCommandList->removeLast();
+            }
+        }
+
+        if (clickedCommandList->at(currentCommandIndex) != senderNum) {
+            clickedCommandList->append(senderNum);
+        }
+        currentCommandIndex++;
+        clickedCommandList->append(transitionNum);
+
+        goToCommandByNumber(transitionNum);
+    }
+
+}
+
+void PostCommandWidget::goToCommandByNumber(int num)
+{
+      checkCurrentIndex();
+      ui->scrollArea->ensureWidgetVisible(stringsList->at(num).data());
 }
 
 

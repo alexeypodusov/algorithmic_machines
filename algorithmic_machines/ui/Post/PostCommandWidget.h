@@ -14,10 +14,9 @@ namespace Ui {
 class PostCommandWidget;
 }
 
-class PostCommandWidget : public QWidget, BaseCommandWidget
+class PostCommandWidget : public BaseCommandWidget
 {
     Q_OBJECT
-
 public:
     explicit PostCommandWidget(ModelBase *model);
     ~PostCommandWidget();
@@ -35,6 +34,8 @@ private:
     void addCommandString(int numString);
     void deselectCommand();
 
+    void goToCommandByNumber(int num);
+
     int currentSelectedCommand = -1;
 
     // BaseCommandWidget interface
@@ -42,13 +43,15 @@ private:
     void onAddStringClicked();
     void onDeleteStringClicked();
     void onChangedStatusPlay(StatusPlay statusPlay);
+
 private slots:
     void onCommandTypeChanged(int numberString, PostCommandType type);
     void onTransitionEdited(int numberString, int transition);
     void onSecondTransitionEdited(int numberString, int transition);
     void onCommentEdited(int numberString, QString comment);
     void onSelectedCommand(int numberCommand, int prevCommand);
-    void onNumStringClicked(int num);
+    void onNumStringClicked(int transitionNum, int senderNum);
+
 };
 
 #endif // POSTCOMMANDWIDGET_H

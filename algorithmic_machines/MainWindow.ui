@@ -70,7 +70,7 @@
       <item>
        <layout class="QHBoxLayout" name="commandBarLayout">
         <item>
-         <layout class="QVBoxLayout" name="buttonsLayout">
+         <layout class="QVBoxLayout" name="buttonsVerticalLayout">
           <item>
            <spacer name="verticalSpacer">
             <property name="orientation">
@@ -126,13 +126,57 @@
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="commandLayout">
+         <layout class="QVBoxLayout" name="commandAndButtonslLayout">
+          <property name="spacing">
+           <number>3</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
           <item>
-           <widget class="QTabWidget" name="tabCommandWidget">
-            <property name="currentIndex">
-             <number>-1</number>
+           <layout class="QHBoxLayout" name="buttonHorizontalLayout">
+            <property name="topMargin">
+             <number>0</number>
             </property>
-           </widget>
+            <item>
+             <widget class="QPushButton" name="backCommandButton">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="forwardCommandButton">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="commandLayout">
+            <item>
+             <widget class="QTabWidget" name="tabCommandWidget">
+              <property name="currentIndex">
+               <number>-1</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>

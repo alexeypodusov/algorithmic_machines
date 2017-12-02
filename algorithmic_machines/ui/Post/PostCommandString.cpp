@@ -1,4 +1,4 @@
-#include "PostCommandString.h"
+  #include "PostCommandString.h"
 
 PostCommandString::PostCommandString(QWidget *parent) : BaseCommandString(parent)
 {
@@ -205,6 +205,6 @@ void PostCommandString::onCommentEditedSlot()
 
 void PostCommandString::onLinkStringSlot(QString link)
 {
-    emit onLinkStringSignal(link.toInt());
+    emit onLinkStringSignal(link.toInt(), numberStringLabel->text().toInt());
 }
 

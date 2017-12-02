@@ -27,6 +27,10 @@ void MainWindow::initHardCode() {
 
     commandWidgetList = new QList<QSharedPointer<BaseCommandWidget> >();
     commandWidgetList->append(QSharedPointer<BaseCommandWidget>(factory->createCommandWidget(model)));
+    connect(commandWidgetList->at(0).data(), SIGNAL(enableCommandButtonsChange(bool, bool)),
+            this, SLOT(onChangeEnableCommandButtons(bool, bool)));
+
+    commandWidgetList->at(0).data()->checkCurrentIndex();
 
     workAreaWidgetList = new QList<QSharedPointer<BaseWorkAreaWidget> >();
     workAreaWidgetList->append(QSharedPointer<BaseWorkAreaWidget>(factory->createWorkAreaWidget(model)));
@@ -109,6 +113,12 @@ void MainWindow::onChangedStatusPlay(StatusPlay statusPlay)
      }
 }
 
+void MainWindow::onChangeEnableCommandButtons(bool backEnable, bool forwardEnable)
+{
+    ui->backCommandButton->setEnabled(backEnable);
+    ui->forwardCommandButton->setEnabled(forwardEnable);
+}
+
 
 void MainWindow::on_actionPause_triggered()
 {
@@ -131,4 +141,15 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 {
     QMainWindow::keyReleaseEvent(event);
     emit keyReleaseSignal(event);
+}
+
+
+void MainWindow::on_backCommandButton_clicked()
+{
+    commandWidgetList->at(ui->tabCommandWidget->currentIndex()).data()->onBackCommandClicked();
+}
+
+void MainWindow::on_forwardCommandButton_clicked()
+{
+     commandWidgetList->at(ui->tabCommandWidget->currentIndex()).data()->onForwardCommandClicked();
 }

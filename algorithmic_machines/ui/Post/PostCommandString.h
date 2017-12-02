@@ -64,7 +64,7 @@ signals:
     void onTransitionEditedSignal(int numberString, int transition);
     void onSecondTransitionEditedSignal(int numberString, int transition);
     void onCommentEditedSignal(int numberString, QString comment);
-    void onLinkStringSignal(int numberString);
+    void onLinkStringSignal(int transitionNumberString, int senderNumberString);
 
 private slots:
     void onCommandTypeChangedSlot(int type);

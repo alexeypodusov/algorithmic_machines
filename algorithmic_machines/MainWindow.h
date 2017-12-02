@@ -23,14 +23,15 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private slots:
+    void receiveMessage(MessageType messageType, QString text, QString title);
+    void onChangedStatusPlay(StatusPlay statusPlay);
+    void onChangeEnableCommandButtons(bool backEnable, bool forwardEnable);
+
     void on_pushButtonAddString_clicked();
 
     void on_pushButtonDeleteString_clicked();
 
     void on_actionPlay_triggered();
-
-    void receiveMessage(MessageType messageType, QString text, QString title);
-    void onChangedStatusPlay(StatusPlay statusPlay);
 
     void on_actionNextStep_triggered();
 
@@ -40,9 +41,13 @@ private slots:
 
     void on_actionReverseStep_triggered();
 
+    void on_backCommandButton_clicked();
+
+    void on_forwardCommandButton_clicked();
+
+
 private:
     Ui::MainWindow *ui;
-
     void initHardCode();
 
     AbstractFactory *factory;
