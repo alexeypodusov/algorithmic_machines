@@ -19,7 +19,7 @@ PostCommandWidget::~PostCommandWidget()
 }
 
 void PostCommandWidget::init()
-{
+{         
     stringsList = new QList<QSharedPointer<PostCommandString> >();
 
     scrollAreaLayout = new QVBoxLayout(this);
@@ -34,7 +34,10 @@ void PostCommandWidget::init()
     for(int i = 0 ; i < commandListSize ; i++) {
         addCommandString(i);
     }
+    updateSelectingFocus(focusedCommand);
 }
+
+
 
 void PostCommandWidget::addCommandString(int numString)
 {
@@ -52,6 +55,7 @@ void PostCommandWidget::addCommandString(int numString)
     connect(command, SIGNAL(onSecondTransitionEditedSignal(int,int)), this, SLOT(onSecondTransitionEdited(int, int)));
     connect(command, SIGNAL(onCommentEditedSignal(int, QString)), this, SLOT(onCommentEdited(int, QString)));
     connect(command, SIGNAL(onLinkStringSignal(int, int)), this, SLOT(onNumStringClicked(int, int)));
+    connect(command, SIGNAL(inFocusSignal(int)), this, SLOT(onInFocusCommand(int)));
     commandStringsLayout->addWidget(command);
 }
 
@@ -60,6 +64,15 @@ void PostCommandWidget::deselectCommand()
     if (currentSelectedCommand != -1) {
          stringsList->at(currentSelectedCommand).data()->setDeselected();
     }
+}
+
+void PostCommandWidget::updateSelectingFocus(int numString)
+{
+    if (stringsList->size() > focusedCommand) {
+        stringsList->at(focusedCommand).data()->removeSelectingFocus();
+    }
+    focusedCommand = numString;
+    stringsList->at(numString).data()->setSelectingFocused();
 }
 
 QWidget *PostCommandWidget::getWidget()
@@ -114,6 +127,11 @@ void PostCommandWidget::onNumStringClicked(int transitionNum, int senderNum)
         goToCommandByNumber(transitionNum);
     }
 
+}
+
+void PostCommandWidget::onInFocusCommand(int numCommand)
+{
+    updateSelectingFocus(numCommand);
 }
 
 void PostCommandWidget::goToCommandByNumber(int num)

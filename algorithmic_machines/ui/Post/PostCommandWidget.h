@@ -34,9 +34,12 @@ private:
     void addCommandString(int numString);
     void deselectCommand();
 
+    void updateSelectingFocus(int numString);
+
     void goToCommandByNumber(int num);
 
     int currentSelectedCommand = -1;
+    int focusedCommand = 0;
 
     // BaseCommandWidget interface
     QWidget *getWidget();
@@ -51,6 +54,7 @@ private slots:
     void onCommentEdited(int numberString, QString comment);
     void onSelectedCommand(int numberCommand, int prevCommand);
     void onNumStringClicked(int transitionNum, int senderNum);
+    void onInFocusCommand(int numCommand);
 
 };
 

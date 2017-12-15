@@ -31,16 +31,18 @@ PostCommandString::PostCommandString(QWidget *parent) : BaseCommandString(parent
     transitionLineEdit->setValidator(new QIntValidator(0, 999));
     connect(transitionLineEdit, SIGNAL(editingFinished()), this, SLOT(onTransitionEditedSlot()));
     connect(transitionLineEdit, SIGNAL(clickedLinkSignal(QString)), this, SLOT(onLinkStringSlot(QString)));
+    transitionLineEdit->installEventFilter(this);
     stringLayout->addWidget(transitionLineEdit);
 
     secondTransitionLineEdit = new LinkLineEdit();
     secondTransitionLineEdit->setFixedWidth(WIDTH_TRANSITION_STRING);
     secondTransitionLineEdit->setFixedHeight(HEIGHT_STRING);
-    transitionLineEdit->setMaximumWidth(3);
-    transitionLineEdit->setValidator(new QIntValidator(0, 999));
+    secondTransitionLineEdit->setMaximumWidth(3);
+    secondTransitionLineEdit->setValidator(new QIntValidator(0, 999));
     secondTransitionLineEdit->hide();
     connect(secondTransitionLineEdit, SIGNAL(editingFinished()), this, SLOT(onSecondTransitionEditedSlot()));
     connect(secondTransitionLineEdit, SIGNAL(clickedLinkSignal(QString)), this, SLOT(onLinkStringSlot(QString)));
+    secondTransitionLineEdit->installEventFilter(this);
     stringLayout->addWidget(secondTransitionLineEdit);
 
     commentLineEdit = new QLineEdit();
@@ -49,6 +51,7 @@ PostCommandString::PostCommandString(QWidget *parent) : BaseCommandString(parent
     commentLineEdit->setMaxLength(255);
     stringLayout->addWidget(commentLineEdit);
     connect(commentLineEdit, SIGNAL(editingFinished()), this, SLOT(onCommentEditedSlot()));
+    commentLineEdit->installEventFilter(this);
     stringLayout->setContentsMargins(0,0,0,0);
 
     mainLayout->setContentsMargins(0,0,0,0);
@@ -105,6 +108,7 @@ int PostCommandString::getNumberString()
 
 void PostCommandString::setNumberString(int number)
 {
+    numberString = number;
     numberStringLabel->setText(QString::number(number));
 }
 
@@ -172,6 +176,16 @@ void PostCommandString::setDeselected()
     this->setStyleSheet(NOSELECT_STRING_CSS);
     setFixedHeight(HEIGHT_STRING);
     previousStringWidget->hide();
+}
+
+void PostCommandString::setSelectingFocused()
+{
+    numberStringLabel->setStyleSheet("color: green");
+}
+
+void PostCommandString::removeSelectingFocus()
+{
+    numberStringLabel->setStyleSheet("color: black");
 }
 
 

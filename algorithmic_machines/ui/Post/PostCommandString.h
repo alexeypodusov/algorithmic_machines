@@ -45,6 +45,10 @@ public:
 
    void setSelect(int prevCommand);
    void setDeselected();
+
+
+   void setSelectingFocused();
+   void removeSelectingFocus();
 private:
    QVBoxLayout *mainLayout;
    QHBoxLayout *linkLayout;
