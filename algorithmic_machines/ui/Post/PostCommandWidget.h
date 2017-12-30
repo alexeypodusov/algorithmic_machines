@@ -38,6 +38,8 @@ private:
 
     void goToCommandByNumber(int num);
 
+    void updateCommands();
+
     int currentSelectedCommand = -1;
     int focusedCommand = 0;
 

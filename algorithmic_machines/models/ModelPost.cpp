@@ -80,12 +80,46 @@ void ModelPost::insertCommandString(int numString)
 {
     PostModelCommand command;
     command.number = numString;
+
     commandsList->insert(numString, command);
+
+    for(int i = 0; i < commandsList->size(); i++) {
+        if(i > numString) {
+            commandsList->at(i).number++;
+        }
+
+        if (commandsList->at(i).transition >= numString) {
+            commandsList->at(i).transition++;
+        }
+        if (commandsList->at(i).secondTransition >= numString) {
+            commandsList->at(i).secondTransition++;
+        }
+    }
 }
 
 void ModelPost::deleteCommandString(int numString)
 {
     commandsList->removeAt(numString);
+    for(int i = 0; i < commandsList->size(); i++) {
+        if(i >= numString) {
+            commandsList->at(i).number--;
+        }
+
+        if (commandsList->at(i).transition == numString) {
+            commandsList->at(i).transition = -1;
+        }
+        if (commandsList->at(i).secondTransition == numString) {
+            commandsList->at(i).secondTransition = -1;
+        }
+
+        if (commandsList->at(i).transition > numString) {
+            commandsList->at(i).transition--;
+        }
+        if (commandsList->at(i).secondTransition > numString) {
+            commandsList->at(i).secondTransition--;
+        }
+    }
+
 }
 
 bool ModelPost::checkValidationCommand(int numberCommand)

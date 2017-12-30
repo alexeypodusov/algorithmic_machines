@@ -30,10 +30,7 @@ void PostCommandWidget::init()
     ui->scrollArea->widget()->setLayout(scrollAreaLayout);
     scrollAreaLayout->setAlignment(commandStringsLayout, Qt::AlignTop);
 
-    int commandListSize = model->getCommandsListSize();
-    for(int i = 0 ; i < commandListSize ; i++) {
-        addCommandString(i);
-    }
+    updateCommands();
     updateSelectingFocus(focusedCommand);
 }
 
@@ -41,14 +38,8 @@ void PostCommandWidget::init()
 
 void PostCommandWidget::addCommandString(int numString)
 {
-    PostModelCommand commandModel = model->getPostCommand(numString);
     PostCommandString *command = new PostCommandString();
     stringsList->append(QSharedPointer<PostCommandString>(command));
-    command->setNumberString(commandModel.number);
-    command->setCommandType(commandModel.commandType);
-    command->setTransition(commandModel.transition);
-    command->setSecondTransition(commandModel.secondTransition);
-    command->setComment(commandModel.comment);
 
     connect(command, SIGNAL(onCommandTypeChangedSignal(int, PostCommandType)), this, SLOT(onCommandTypeChanged(int, PostCommandType)));
     connect(command, SIGNAL(onTransitionEditedSignal(int,int)), this, SLOT(onTransitionEdited(int, int)));
@@ -68,7 +59,7 @@ void PostCommandWidget::deselectCommand()
 
 void PostCommandWidget::updateSelectingFocus(int numString)
 {
-    if (stringsList->size() > focusedCommand) {
+    if (stringsList->size() >= focusedCommand) {
         stringsList->at(focusedCommand).data()->removeSelectingFocus();
     }
     focusedCommand = numString;
@@ -137,20 +128,44 @@ void PostCommandWidget::onInFocusCommand(int numCommand)
 void PostCommandWidget::goToCommandByNumber(int num)
 {
       checkCurrentIndex();
+      updateSelectingFocus(num);
       ui->scrollArea->ensureWidgetVisible(stringsList->at(num).data());
+}
+
+void PostCommandWidget::updateCommands()
+{
+    int modelSize = model->getCommandsListSize();
+
+    while (stringsList->size() > modelSize) {
+        stringsList->removeLast();
+    }
+
+    while (stringsList->size() < modelSize) {
+        addCommandString(stringsList->size());
+    }
+
+    for(int i = 0; i < modelSize; i++) {
+        PostModelCommand commandModel = model->getPostCommand(i);
+        stringsList->at(i).data()->setNumberString(commandModel.number);
+        stringsList->at(i).data()->setCommandType(commandModel.commandType);
+        stringsList->at(i).data()->setTransition(commandModel.transition);
+        stringsList->at(i).data()->setSecondTransition(commandModel.secondTransition);
+        stringsList->at(i).data()->setComment(commandModel.comment);
+    }
+
 }
 
 
 void PostCommandWidget::onAddStringClicked()
 {
-    model->insertCommandString(stringsList->size());
-    addCommandString(stringsList->size());
+    model->insertCommandString(focusedCommand + 1);
+    updateCommands();
 }
 
 void PostCommandWidget::onDeleteStringClicked()
 {
-    model->deleteCommandString(stringsList->size()-1);
-    stringsList->removeLast();
+    model->deleteCommandString(focusedCommand);
+    updateCommands();
 }
 
 
